@@ -1,4 +1,7 @@
-.card-image-top {
+body {
+  background-color: red;
+}
+.card-img-top {
   height: 200px;
   object-fit: cover;
 }
