@@ -1,0 +1,204 @@
+[
+  {
+    "id": 1,
+    "name": "Mojito",
+    "alcohol": "Rum",
+    "ingredients": [
+      "5 cl Rum",
+      "Limettensaft",
+      "Minze",
+      "Zucker",
+      "Soda"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Klassiker", "Sommer"],
+    "description": "Erfrischender kubanischer Klassiker mit Rum, Minze und Limette.",
+    "preparation": "Minze und Limette im Glas zerdrücken, Zucker und Rum hinzufügen, mit Soda auffüllen.",
+    "image": "cocktails/images/mojito.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["erfrischend", "fruchtig", "klassisch"]
+  },
+  {
+    "id": 2,
+    "name": "Aperol Spritz",
+    "alcohol": "Aperol, Prosecco",
+    "ingredients": [
+      "6 cl Prosecco",
+      "4 cl Aperol",
+      "2 cl Soda",
+      "Orangenscheibe"
+    ],
+    "glass": "Weinglas",
+    "categories": ["Klassiker", "Sommer", "Aperitif"],
+    "description": "Beliebter Aperitif aus Italien mit Prosecco, Aperol und Soda.",
+    "preparation": "Prosecco, Aperol und Soda in ein Glas mit Eis geben und leicht umrühren. Mit einer Orangenscheibe garnieren.",
+    "image": "cocktails/images/aperol_spritz.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 3,
+    "alcoholFree": false,
+    "tags": ["leicht", "spritzig", "aperitif", "sommer"]
+  },
+  {
+    "id": 3,
+    "name": "Blue Lady",
+    "alcohol": "Gin",
+    "ingredients": [
+      "4 cl Gin",
+      "2 cl Blue Curacao",
+      "2 cl Zitronensaft",
+      "1 cl Zuckersirup"
+    ],
+    "glass": "Cocktailglas",
+    "categories": ["Klassiker"],
+    "description": "Eleganter Gin-Cocktail mit Blue Curacao und intensiver blauer Farbe.",
+    "preparation": "Alle Zutaten im Shaker mit Eis mixen und in ein gekühltes Glas abseihen.",
+    "image": "cocktails/images/Blue+Lady+8.webp",
+    "difficulty": "mittel",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["elegant", "shaker", "fruchtig"]
+  },
+  {
+    "id": 4,
+    "name": "Guave Rumpunsch",
+    "alcohol": "Rum",
+    "ingredients": [
+      "5 cl Rum",
+      "6 cl Guavensaft",
+      "2 cl Limettensaft",
+      "Zucker nach Geschmack"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Exotisch", "Sommer"],
+    "description": "Tropischer Cocktail mit Rum und exotischem Guavensaft.",
+    "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein Glas füllen.",
+    "image": "cocktails/images/guave_rumpunsch.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["tropisch", "exotisch", "fruchtig"]
+  },
+  {
+    "id": 5,
+    "name": "Karibik",
+    "alcohol": "Wodka",
+    "ingredients": [
+      "4 cl Wodka",
+      "6 cl Maracujasaft",
+      "4 cl Guavensaft",
+      "1 cl Grenadine",
+      "2 cl frisch gepresster Limettensaft"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Exotisch", "Sommer"],
+    "description": "Exotischer Fruchtcocktail mit Wodka, Maracuja und Guave.",
+    "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
+    "image": "cocktails/images/karibik.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["tropisch", "farbenfroh", "fruchtig"]
+  },
+  {
+    "id": 6,
+    "name": "Poseidon",
+    "alcohol": "Wodka",
+    "ingredients": [
+      "4 cl Wodka",
+      "6 cl Blue Curacao",
+      "8 cl Salitos (blau)",
+      "2 cl Kokossirup"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Party"],
+    "description": "Intensiv blauer Party-Cocktail mit Wodka, Blue Curacao und Kokos.",
+    "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
+    "image": "cocktails/images/poseidon.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["party", "süß", "blau"]
+  },
+  {
+    "id": 7,
+    "name": "Sommerapfel",
+    "alcohol": "Aperol",
+    "ingredients": [
+      "8 cl Aperol",
+      "100 ml Sommersby",
+      "4 cl Schweppes Orange"
+    ],
+    "glass": "Weinglas",
+    "categories": ["Sommer", "Aperitif"],
+    "description": "Leichter Sommerdrink mit Aperol, Apfelcider und Orange.",
+    "preparation": "Aperol über Eis in ein Weinglas geben, Sommersby und Schweppes Orange hinzufügen und leicht umrühren.",
+    "image": "cocktails/images/sommerapfel.png",
+    "difficulty": "einfach",
+    "preparationTime": 3,
+    "alcoholFree": false,
+    "tags": ["leicht", "sommer", "erfrischend", "aperitif"]
+  },
+  {
+    "id": 8,
+    "name": "Springtime Cooler",
+    "alcohol": "Wodka",
+    "ingredients": [
+      "1 cl Zuckersirup",
+      "2 cl Blue Curacao",
+      "3 cl Zitronensaft",
+      "4 cl Wodka",
+      "6 cl Orangensaft"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Sommer", "Party"],
+    "description": "Frischer Frühlingscocktail mit Wodka, Blue Curacao und Orangensaft.",
+    "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
+    "image": "cocktails/images/springtime_cooler.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["frisch", "frühling", "fruchtig"]
+  },
+  {
+    "id": 9,
+    "name": "Tropico",
+    "alcohol": "Gin",
+    "ingredients": [
+      "8 cl Gin",
+      "4 cl Malibu",
+      "4 cl Kokossirup",
+      "6 cl Blue Curacao",
+      "20 cl Gingerale",
+      "4 cl Zitronensaft"
+    ],
+    "glass": "Longdrink-Glas",
+    "categories": ["Exotisch", "Party"],
+    "description": "Großer tropischer Longdrink mit Gin, Malibu und Kokosnote.",
+    "preparation": "Gin, Malibu, Kokossirup, Blue Curacao und Zitronensaft im Shaker mit Eis mischen, in ein großes Glas abseihen und mit Gingerale auffüllen.",
+    "image": "cocktails/images/tropico.jpg",
+    "difficulty": "mittel",
+    "preparationTime": 8,
+    "alcoholFree": false,
+    "tags": ["tropisch", "kokos", "party", "longdrink"]
+  },
+  {
+    "id": 10,
+    "name": "Hope for Timmy",
+    "alcohol": "Aperol",
+    "ingredients": [
+      "6 cl Aperol",
+      "Apfelsaft"
+    ],
+    "glass": "Highball-Glas",
+    "categories": ["Sommer"],
+    "description": "Einfacher, leichter Sommerdrink mit Aperol und Apfelsaft.",
+    "preparation": "Aperol über Eis in ein Glas geben und mit Apfelsaft auffüllen.",
+    "image": "cocktails/images/mojito.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 2,
+    "alcoholFree": false,
+    "tags": ["leicht", "fruchtig", "einfach"]
+  }
+]
