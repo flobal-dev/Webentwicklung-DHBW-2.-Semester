@@ -48,7 +48,8 @@ h1, h2, h3, h4, h5,
   background-color: var(--cp-surface) !important;
   border: 1px solid var(--cp-border) !important;
   border-radius: var(--cp-radius) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
@@ -60,6 +61,21 @@ h1, h2, h3, h4, h5,
   height: 200px;
   object-fit: cover;
   border-radius: var(--cp-radius) var(--cp-radius) 0 0 !important;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.06);
+}
+
+/* Einblend-Animation für Cards beim Laden */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-animate {
+  animation: fadeUp 0.4s ease both;
 }
 
 .card-title { color: var(--cp-text); }
@@ -68,6 +84,13 @@ h1, h2, h3, h4, h5,
   color: var(--cp-muted) !important;
   font-size: 0.875rem;
 }
+
+/* Button-Klick-Feedback */
+.btn {
+  transition: transform 0.1s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:active { transform: scale(0.96); }
 
 /* Primär-Button */
 .btn-primary {

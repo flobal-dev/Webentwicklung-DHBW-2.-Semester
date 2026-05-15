@@ -19,10 +19,11 @@ function difficultyColor(difficulty) {
 }
 
 // Baut das HTML für eine einzelne Cocktail-Card (Übersichtsseite)
-function createCard(cocktail) {
+// index steuert die Verzögerung der Einblend-Animation (Stagger-Effekt)
+function createCard(cocktail, index = 0) {
 
   return `
-    <div class="col">
+    <div class="col card-animate" style="animation-delay: ${index * 0.07}s">
       <div class="card h-100 shadow-sm border-0">
         <img
           src="${cocktail.image}"
@@ -52,7 +53,7 @@ function createCard(cocktail) {
 function renderCocktails(cocktails) {
   const grid = document.getElementById('cocktail-grid');
   if (!grid) return;
-  grid.innerHTML = cocktails.map(createCard).join('');
+  grid.innerHTML = cocktails.map((c, i) => createCard(c, i)).join('');
 }
 
 // Zeigt eine Fehlermeldung wenn das Laden schiefgeht
