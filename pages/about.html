@@ -7,9 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="">
+<body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">Cocktailpedia 🍹</a>
@@ -28,12 +27,90 @@
 </nav>
 
 <main class="container py-5">
-  <h1 class="fw-bold mb-4">Über das Projekt</h1>
 
-  <!-- Inhalt folgt — hier kommen Projektbeschreibung, Team und Tech-Stack rein -->
-  <div class="alert alert-secondary">
-    Inhalt folgt.
-  </div>
+  <!-- Projektbeschreibung -->
+  <section class="mb-5">
+    <p class="text-uppercase mb-3" style="color: var(--cp-accent); letter-spacing: 0.15em; font-size: 0.8rem; font-weight: 500;">Das Projekt</p>
+    <h1 class="fw-bold mb-3">Über Cocktailpedia</h1>
+    <p style="color: var(--cp-muted); max-width: 620px; line-height: 1.8;">
+      Cocktailpedia ist ein kollaboratives Cocktail-Lexikon, entwickelt im Rahmen des
+      Web-Entwicklung-Moduls im 2. Semester an der DHBW Lörrach.
+      Ziel war es, eine übersichtliche, datengetriebene Plattform mit sauberem
+      Frontend-Code und guter Usability zu bauen — inspiriert vom Prinzip Wikipedia,
+      aber für Cocktails.
+    </p>
+  </section>
+
+  <hr style="border-color: var(--cp-border); margin-bottom: 3rem;">
+
+  <!-- Tech Stack -->
+  <section class="mb-5">
+    <h2 class="fw-bold mb-4">Tech Stack</h2>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">HTML5</span>
+      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">CSS3</span>
+      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">Vanilla JavaScript</span>
+      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">Bootstrap 5.3</span>
+      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">JSON</span>
+    </div>
+  </section>
+
+  <hr style="border-color: var(--cp-border); margin-bottom: 3rem;">
+
+  <!-- Team -->
+  <section>
+    <h2 class="fw-bold mb-4">Das Team</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <!-- Simon -->
+      <div class="col">
+        <div class="card h-100 p-4">
+          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-accent); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #0e0e0e; font-family: 'Playfair Display', serif; font-size: 1.1rem;">S</div>
+          <h5 class="mb-1">Simon Gwangwaa</h5>
+          <p class="mb-3" style="color: var(--cp-accent); font-size: 0.85rem; font-family: 'Inter', sans-serif;">Frontend-Entwicklung & Design</p>
+          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
+            Inhaber &amp; Webentwickler bei <a href="https://lumoramarketing.de" target="_blank" style="color: var(--cp-accent); text-decoration: none;">Lumora Marketing</a> —
+            Websites, Content &amp; digitale Strategie für Brands.
+          </p>
+          <a href="https://github.com/sema-dq" target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Flo — bitte selbst ausfüllen -->
+      <div class="col">
+        <div class="card h-100 p-4">
+          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-surface); border: 2px dashed var(--cp-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--cp-muted); font-family: 'Playfair Display', serif; font-size: 1.1rem;">F</div>
+          <h5 class="mb-1">Flo</h5>
+          <!-- Rolle eintragen, z.B. "Backend & Datenstruktur" -->
+          <p class="mb-3" style="color: var(--cp-accent); font-size: 0.85rem; font-family: 'Inter', sans-serif;">Rolle eintragen</p>
+          <!-- 1-2 Sätze über dich -->
+          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
+            Beschreibung folgt.
+          </p>
+          <!-- Optional: GitHub-Link einkommentieren -->
+          <!-- <a href="https://github.com/..." target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a> -->
+        </div>
+      </div>
+
+      <!-- Tim — bitte selbst ausfüllen -->
+      <div class="col">
+        <div class="card h-100 p-4">
+          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-surface); border: 2px dashed var(--cp-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--cp-muted); font-family: 'Playfair Display', serif; font-size: 1.1rem;">T</div>
+          <h5 class="mb-1">Tim</h5>
+          <!-- Rolle eintragen -->
+          <p class="mb-3" style="color: var(--cp-accent); font-size: 0.85rem; font-family: 'Inter', sans-serif;">Rolle eintragen</p>
+          <!-- 1-2 Sätze über dich -->
+          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
+            Beschreibung folgt.
+          </p>
+          <!-- Optional: GitHub-Link einkommentieren -->
+          <!-- <a href="https://github.com/..." target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a> -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </main>
 
 <footer class="bg-dark text-light text-center py-3 mt-5">
