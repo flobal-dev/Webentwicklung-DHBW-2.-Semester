@@ -1,2 +1,4 @@
 .DS_Store
 AGENTS.md
+# Claude Code interne Dateien — nicht ins Repo
+.claude/
