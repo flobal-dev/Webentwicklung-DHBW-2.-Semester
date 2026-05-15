@@ -4,119 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Über uns – Cocktailpedia</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script>const t=localStorage.getItem("cp-theme");if(t)document.documentElement.setAttribute("data-bs-theme",t);</script>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">Cocktailpedia 🍹</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="cocktails.html">Cocktails</a></li>
-        <li class="nav-item"><a class="nav-link" href="kategorien.html">Kategorien</a></li>
-        <li class="nav-item"><a class="nav-link active" href="about.html">Über uns</a></li>
-      </ul>
-      <button id="theme-toggle" class="btn btn-outline-secondary btn-sm ms-3" title="Theme wechseln">☀️</button>
+<div class="blob-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<nav class="glass-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">🍹 Cocktailpedia</a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cocktails.html">Cocktails</a></li>
+      <li><a href="kategorien.html">Kategorien</a></li>
+      <li><a href="about.html" class="active">Über uns</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-btn" title="Theme wechseln">☀️</button>
+      <button class="nav-toggle" aria-label="Menü öffnen">☰</button>
     </div>
   </div>
 </nav>
 
-<main class="container py-5">
+<main>
 
-  <!-- Projektbeschreibung -->
-  <section class="mb-5">
-    <p class="text-uppercase mb-3" style="color: var(--cp-accent); letter-spacing: 0.15em; font-size: 0.8rem; font-weight: 500;">Das Projekt</p>
-    <h1 class="fw-bold mb-3">Über Cocktailpedia</h1>
-    <p style="color: var(--cp-muted); max-width: 620px; line-height: 1.8;">
-      Cocktailpedia ist ein kollaboratives Cocktail-Lexikon, entwickelt im Rahmen des
+  <!-- ── Page hero ──────────────────────────────────────────── -->
+  <div class="page-hero">
+    <span class="section-label">Das Projekt</span>
+    <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem)">Über Cocktailpedia</h1>
+    <p class="section-sub">
+      Ein kollaboratives Cocktail-Lexikon — entstanden im Rahmen des
       Web-Entwicklung-Moduls im 2. Semester an der DHBW Lörrach.
-      Ziel war es, eine übersichtliche, datengetriebene Plattform mit sauberem
-      Frontend-Code und guter Usability zu bauen — inspiriert vom Prinzip Wikipedia,
-      aber für Cocktails.
+      Unser Ziel: eine übersichtliche, datengetriebene Plattform mit sauberem
+      Frontend-Code und guter Usability — inspiriert vom Prinzip Wikipedia, aber für Cocktails.
     </p>
-  </section>
+  </div>
 
-  <hr style="border-color: var(--cp-border); margin-bottom: 3rem;">
-
-  <!-- Tech Stack -->
-  <section class="mb-5">
-    <h2 class="fw-bold mb-4">Tech Stack</h2>
-    <div class="d-flex flex-wrap gap-2">
-      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">HTML5</span>
-      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">CSS3</span>
-      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">Vanilla JavaScript</span>
-      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">Bootstrap 5.3</span>
-      <span class="badge fs-6 px-3 py-2" style="background-color: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text); font-family: 'Inter', sans-serif; font-weight: 400;">JSON</span>
+  <!-- ── Tech Stack ─────────────────────────────────────────── -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-label">Tools &amp; Technologien</span>
+      <h2 class="section-title">Tech Stack</h2>
+    </div>
+    <div class="tech-row">
+      <span class="tech-badge">HTML5</span>
+      <span class="tech-badge">CSS3</span>
+      <span class="tech-badge">Vanilla JavaScript</span>
+      <span class="tech-badge">JSON</span>
+      <span class="tech-badge">Bootstrap 5.3</span>
+      <span class="tech-badge">Google Fonts</span>
+      <span class="tech-badge">Liquid Glass UI</span>
     </div>
   </section>
 
-  <hr style="border-color: var(--cp-border); margin-bottom: 3rem;">
+  <hr class="divider" style="margin-bottom:0">
 
-  <!-- Team -->
-  <section>
-    <h2 class="fw-bold mb-4">Das Team</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <!-- ── Team ───────────────────────────────────────────────── -->
+  <section class="section" style="padding-top:3rem">
+    <div class="section-header">
+      <span class="section-label">Wer steckt dahinter</span>
+      <h2 class="section-title">Das Team</h2>
+    </div>
+    <div class="team-grid">
 
       <!-- Simon -->
-      <div class="col">
-        <div class="card h-100 p-4">
-          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-accent); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #0e0e0e; font-family: 'Playfair Display', serif; font-size: 1.1rem;">S</div>
-          <h5 class="mb-3">Simon Gwangwaa</h5>
-          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
-            Inhaber &amp; Webentwickler bei <a href="https://lumoramarketing.de" target="_blank" style="color: var(--cp-accent); text-decoration: none;">Lumora Marketing</a> —
-            Websites, Content &amp; digitale Strategie für Brands.
-          </p>
-          <a href="https://github.com/sema-dq" target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a>
-        </div>
+      <div class="team-card">
+        <div class="team-avatar">S</div>
+        <h3 class="team-name">Simon Gwangwaa</h3>
+        <p class="team-bio">
+          Inhaber &amp; Webentwickler bei
+          <a href="https://lumoramarketing.de" target="_blank"
+             style="color:var(--ac);text-decoration:none">Lumora Marketing</a> —
+          Websites, Content &amp; digitale Strategie für Brands.
+        </p>
+        <a href="https://github.com/sema-dq" target="_blank" class="btn-ghost btn-sm">GitHub</a>
       </div>
 
-      <!-- Andi — bitte selbst ausfüllen -->
-      <div class="col">
-        <div class="card h-100 p-4">
-          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-surface); border: 2px dashed var(--cp-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--cp-muted); font-family: 'Playfair Display', serif; font-size: 1.1rem;">A</div>
-          <h5 class="mb-3">Andi</h5>
-          <!-- 1-2 Sätze über dich -->
-          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
-            Beschreibung folgt.
-          </p>
-          <!-- Optional: GitHub-Link einkommentieren -->
-          <!-- <a href="https://github.com/..." target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a> -->
-        </div>
+      <!-- Andi -->
+      <div class="team-card">
+        <div class="team-avatar ph">A</div>
+        <h3 class="team-name">Andi</h3>
+        <p class="team-bio">Beschreibung folgt.</p>
       </div>
 
-      <!-- Flo — bitte selbst ausfüllen -->
-      <div class="col">
-        <div class="card h-100 p-4">
-          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-surface); border: 2px dashed var(--cp-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--cp-muted); font-family: 'Playfair Display', serif; font-size: 1.1rem;">F</div>
-          <h5 class="mb-3">Flo</h5>
-          <!-- 1-2 Sätze über dich -->
-          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
-            Beschreibung folgt.
-          </p>
-          <!-- Optional: GitHub-Link einkommentieren -->
-          <!-- <a href="https://github.com/..." target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a> -->
-        </div>
+      <!-- Flo -->
+      <div class="team-card">
+        <div class="team-avatar ph">F</div>
+        <h3 class="team-name">Flo</h3>
+        <p class="team-bio">Beschreibung folgt.</p>
       </div>
 
-      <!-- Tim — bitte selbst ausfüllen -->
-      <div class="col">
-        <div class="card h-100 p-4">
-          <div class="mb-3" style="width: 48px; height: 48px; border-radius: 50%; background-color: var(--cp-surface); border: 2px dashed var(--cp-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--cp-muted); font-family: 'Playfair Display', serif; font-size: 1.1rem;">T</div>
-          <h5 class="mb-3">Tim</h5>
-          <!-- 1-2 Sätze über dich -->
-          <p class="mb-3" style="color: var(--cp-muted); font-size: 0.875rem; line-height: 1.6;">
-            Beschreibung folgt.
-          </p>
-          <!-- Optional: GitHub-Link einkommentieren -->
-          <!-- <a href="https://github.com/..." target="_blank" class="btn btn-outline-secondary btn-sm" style="width: fit-content;">GitHub</a> -->
-        </div>
+      <!-- Tim -->
+      <div class="team-card">
+        <div class="team-avatar ph">T</div>
+        <h3 class="team-name">Tim</h3>
+        <p class="team-bio">Beschreibung folgt.</p>
       </div>
 
     </div>
@@ -124,11 +115,11 @@
 
 </main>
 
-<footer class="bg-dark text-light text-center py-3 mt-5">
-  <small>© 2026 Cocktailpedia</small>
+<footer class="glass-footer">
+  <p>© 2026 Cocktailpedia &nbsp;·&nbsp; DHBW Lörrach</p>
 </footer>
 
 <script src="../js/theme.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
 </body>
 </html>

@@ -4,46 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kategorien – Cocktailpedia</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script>const t=localStorage.getItem("cp-theme");if(t)document.documentElement.setAttribute("data-bs-theme",t);</script>
 </head>
-<body class="">
+<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">Cocktailpedia 🍹</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="cocktails.html">Cocktails</a></li>
-        <li class="nav-item"><a class="nav-link active" href="kategorien.html">Kategorien</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">Über uns</a></li>
-      </ul>
-      <button id="theme-toggle" class="btn btn-outline-secondary btn-sm ms-3" title="Theme wechseln">☀️</button>
+<div class="blob-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<nav class="glass-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">🍹 Cocktailpedia</a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cocktails.html">Cocktails</a></li>
+      <li><a href="kategorien.html" class="active">Kategorien</a></li>
+      <li><a href="about.html">Über uns</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-btn" title="Theme wechseln">☀️</button>
+      <button class="nav-toggle" aria-label="Menü öffnen">☰</button>
     </div>
   </div>
 </nav>
 
-<main class="container py-5">
-  <h1 class="fw-bold mb-2">Kategorien</h1>
-  <p class="text-muted mb-5">Wähle eine Kategorie, um passende Cocktails zu entdecken.</p>
+<main>
 
-  <!-- Kategorie-Karten: app.js lädt die Kategorien aus dem JSON und rendert sie hier -->
-  <div id="categories-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    <div class="col-12 text-center py-5 text-muted">Kategorien werden geladen…</div>
+  <div class="page-hero">
+    <span class="section-label">Stöbern</span>
+    <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem)">Kategorien</h1>
+    <p class="section-sub">Wähle eine Kategorie und lass dich inspirieren.</p>
   </div>
+
+  <div class="section" style="padding-top:0">
+    <!-- app.js renders category cards here -->
+    <div id="categories-grid" class="cat-grid">
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">🗂</div>
+        <p class="empty-msg">Kategorien werden geladen…</p>
+      </div>
+    </div>
+  </div>
+
 </main>
 
-<footer class="bg-dark text-light text-center py-3 mt-5">
-  <small>© 2026 Cocktailpedia</small>
+<footer class="glass-footer">
+  <p>© 2026 Cocktailpedia &nbsp;·&nbsp; DHBW Lörrach</p>
 </footer>
 
 <script src="../js/theme.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/app.js"></script>
 </body>
 </html>
