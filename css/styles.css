@@ -184,3 +184,20 @@ footer {
   border-color: var(--cp-border);
   color: var(--cp-muted);
 }
+
+/* Light Mode — überschreibt nur die eigenen Variablen, Bootstrap regelt den Rest */
+[data-bs-theme="light"] {
+  --cp-bg:      #f5f5f3;
+  --cp-surface: #ffffff;
+  --cp-border:  #e2e2e2;
+  --cp-text:    #1a1a1a;
+  --cp-muted:   #666666;
+}
+
+[data-bs-theme="light"] .navbar {
+  background-color: #ffffff !important;
+}
+
+[data-bs-theme="light"] footer {
+  background-color: #eeeeec !important;
+}
