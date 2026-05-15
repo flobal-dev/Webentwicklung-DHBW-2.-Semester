@@ -9,7 +9,6 @@
 </head>
 <body class="bg-light">
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">Cocktailpedia 🍹</a>
@@ -28,11 +27,12 @@
 </nav>
 
 <main class="container py-5">
-  <h1 class="fw-bold mb-4">Kategorien</h1>
+  <h1 class="fw-bold mb-2">Kategorien</h1>
+  <p class="text-muted mb-5">Wähle eine Kategorie, um passende Cocktails zu entdecken.</p>
 
-  <!-- Inhalt folgt — hier kommt der Kategorie-Filter rein (Schritt 7) -->
-  <div class="alert alert-secondary">
-    Inhalt folgt.
+  <!-- Kategorie-Karten: app.js lädt die Kategorien aus dem JSON und rendert sie hier -->
+  <div id="categories-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <div class="col-12 text-center py-5 text-muted">Kategorien werden geladen…</div>
   </div>
 </main>
 
@@ -41,5 +41,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
 </body>
 </html>

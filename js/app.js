@@ -69,61 +69,125 @@ function showError() {
 }
 
 // ============================================================
-// SUCHE
+// SUCHE + KATEGORIE-FILTER
 // ============================================================
 
-// Filtert allCocktails nach Name, Zutaten und Tags — case-insensitiv
-function filterCocktails(query) {
-  const q = query.trim().toLowerCase();
-  if (!q) return allCocktails;
-  return allCocktails.filter(c =>
-    c.name.toLowerCase().includes(q) ||
-    c.ingredients.some(ing => ing.toLowerCase().includes(q)) ||
-    c.tags.some(tag => tag.toLowerCase().includes(q))
-  );
+// aktuell gewählte Kategorie, null heißt "alle"
+let activeCategory = null;
+
+// wendet Suchbegriff und Kategorie gleichzeitig an
+function applyFilters() {
+  const query = (document.getElementById('search-input')?.value ?? '').trim().toLowerCase();
+  let results = allCocktails;
+
+  if (activeCategory) {
+    results = results.filter(c => c.categories.includes(activeCategory));
+  }
+  if (query) {
+    results = results.filter(c =>
+      c.name.toLowerCase().includes(query) ||
+      c.ingredients.some(ing => ing.toLowerCase().includes(query)) ||
+      c.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+  }
+
+  results.length > 0 ? renderCocktails(results) : showNoResults(query || activeCategory);
 }
 
-// Zeigt einen freundlichen Hinweis wenn kein Cocktail zur Suche passt
-function showNoResults(query) {
-  const grid = document.getElementById('cocktail-grid');
-  if (!grid) return;
-  // query wird escaped, damit kein HTML aus dem Eingabefeld ins DOM kommt
-  const safe = query.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  grid.innerHTML = `
-    <div class="col-12 text-center py-5">
-      <p class="fs-1">🔍</p>
-      <p class="text-muted mb-3">Kein Cocktail für <strong>"${safe}"</strong> gefunden.</p>
-      <button class="btn btn-outline-secondary" onclick="clearSearch()">Suche zurücksetzen</button>
-    </div>
-  `;
+// setzt aktive Kategorie und aktualisiert Buttons + Liste
+function setCategory(category) {
+  activeCategory = category;
+  renderCategoryFilters();
+  applyFilters();
 }
 
-// Leert das Suchfeld und zeigt wieder alle Cocktails
+// rendert die Kategorie-Buttons aus den Daten im JSON
+function renderCategoryFilters() {
+  const container = document.getElementById('category-filters');
+  if (!container) return;
+
+  const categories = [...new Set(allCocktails.flatMap(c => c.categories))].sort();
+
+  container.innerHTML = ['Alle', ...categories].map(cat => {
+    const isActive = cat === 'Alle' ? !activeCategory : activeCategory === cat;
+    const style = isActive ? 'btn-dark' : 'btn-outline-secondary';
+    const click = cat === 'Alle' ? 'setCategory(null)' : `setCategory('${cat}')`;
+    return `<button class="btn ${style} btn-sm" onclick="${click}">${cat}</button>`;
+  }).join('');
+}
+
+// leert Suchfeld und Filter
 function clearSearch() {
   const input = document.getElementById('search-input');
   if (!input) return;
   input.value = '';
+  activeCategory = null;
+  renderCategoryFilters();
   renderCocktails(allCocktails);
   input.focus();
 }
 
-// Einstiegspunkt für die Übersichtsseite
+// "Kein Ergebnis"-Zustand mit Reset-Button
+function showNoResults(hint) {
+  const grid = document.getElementById('cocktail-grid');
+  if (!grid) return;
+  const safe = String(hint).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  grid.innerHTML = `
+    <div class="col-12 text-center py-5">
+      <p class="fs-1">🔍</p>
+      <p class="text-muted mb-3">Nichts gefunden für <strong>"${safe}"</strong>.</p>
+      <button class="btn btn-outline-secondary" onclick="clearSearch()">Filter zurücksetzen</button>
+    </div>
+  `;
+}
+
+// Einstiegspunkt Übersichtsseite
 async function initCocktailList() {
   try {
     allCocktails = await fetchCocktails();
-    renderCocktails(allCocktails);
 
-    // Suchfeld verdrahten: bei jeder Eingabe live filtern und neu rendern
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const results = filterCocktails(e.target.value);
-        results.length > 0 ? renderCocktails(results) : showNoResults(e.target.value.trim());
-      });
-    }
+    // URL-Parameter auslesen: cocktails.html?kategorie=Sommer
+    const preset = new URLSearchParams(window.location.search).get('kategorie');
+    if (preset) activeCategory = preset;
+
+    renderCategoryFilters();
+    applyFilters();
+
+    document.getElementById('search-input')?.addEventListener('input', applyFilters);
   } catch (error) {
     console.error('Fehler beim Laden der Cocktails:', error);
     showError();
+  }
+}
+
+// ============================================================
+// KATEGORIEN-SEITE
+// ============================================================
+
+// rendert Kategorie-Karten mit Cocktailanzahl auf kategorien.html
+async function initCategories() {
+  try {
+    allCocktails = await fetchCocktails();
+    const grid = document.getElementById('categories-grid');
+    if (!grid) return;
+
+    const categories = [...new Set(allCocktails.flatMap(c => c.categories))].sort();
+
+    grid.innerHTML = categories.map(cat => {
+      const count = allCocktails.filter(c => c.categories.includes(cat)).length;
+      return `
+        <div class="col">
+          <a href="cocktails.html?kategorie=${encodeURIComponent(cat)}" class="text-decoration-none">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+              <h4 class="fw-bold mb-1">${cat}</h4>
+              <p class="text-muted mb-0">${count} Cocktail${count !== 1 ? 's' : ''}</p>
+            </div>
+          </a>
+        </div>
+      `;
+    }).join('');
+  } catch (error) {
+    console.error('Fehler beim Laden der Kategorien:', error);
   }
 }
 
@@ -248,6 +312,7 @@ async function initCocktailDetail() {
 // Funktion aufrufen — eine Datei für beide Seiten
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('cocktail-grid'))  initCocktailList();
+  if (document.getElementById('cocktail-grid'))   initCocktailList();
   if (document.getElementById('cocktail-detail')) initCocktailDetail();
+  if (document.getElementById('categories-grid')) initCategories();
 });
