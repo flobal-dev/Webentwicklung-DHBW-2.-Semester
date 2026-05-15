@@ -1,6 +1,10 @@
 // ============================================================
-// app.js — Übersichtsliste + Detailseite aus cocktails.json
+// app.js — Übersichtsliste + Suche + Detailseite aus cocktails.json
 // ============================================================
+
+// Alle geladenen Cocktails im Speicher halten — Suche filtert daraus,
+// ohne jedes Mal neu fetchen zu müssen
+let allCocktails = [];
 
 // Holt alle Cocktails aus der JSON-Datei
 async function fetchCocktails() {
@@ -64,11 +68,59 @@ function showError() {
   `;
 }
 
+// ============================================================
+// SUCHE
+// ============================================================
+
+// Filtert allCocktails nach Name, Zutaten und Tags — case-insensitiv
+function filterCocktails(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) return allCocktails;
+  return allCocktails.filter(c =>
+    c.name.toLowerCase().includes(q) ||
+    c.ingredients.some(ing => ing.toLowerCase().includes(q)) ||
+    c.tags.some(tag => tag.toLowerCase().includes(q))
+  );
+}
+
+// Zeigt einen freundlichen Hinweis wenn kein Cocktail zur Suche passt
+function showNoResults(query) {
+  const grid = document.getElementById('cocktail-grid');
+  if (!grid) return;
+  // query wird escaped, damit kein HTML aus dem Eingabefeld ins DOM kommt
+  const safe = query.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  grid.innerHTML = `
+    <div class="col-12 text-center py-5">
+      <p class="fs-1">🔍</p>
+      <p class="text-muted mb-3">Kein Cocktail für <strong>"${safe}"</strong> gefunden.</p>
+      <button class="btn btn-outline-secondary" onclick="clearSearch()">Suche zurücksetzen</button>
+    </div>
+  `;
+}
+
+// Leert das Suchfeld und zeigt wieder alle Cocktails
+function clearSearch() {
+  const input = document.getElementById('search-input');
+  if (!input) return;
+  input.value = '';
+  renderCocktails(allCocktails);
+  input.focus();
+}
+
 // Einstiegspunkt für die Übersichtsseite
 async function initCocktailList() {
   try {
-    const cocktails = await fetchCocktails();
-    renderCocktails(cocktails);
+    allCocktails = await fetchCocktails();
+    renderCocktails(allCocktails);
+
+    // Suchfeld verdrahten: bei jeder Eingabe live filtern und neu rendern
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const results = filterCocktails(e.target.value);
+        results.length > 0 ? renderCocktails(results) : showNoResults(e.target.value.trim());
+      });
+    }
   } catch (error) {
     console.error('Fehler beim Laden der Cocktails:', error);
     showError();

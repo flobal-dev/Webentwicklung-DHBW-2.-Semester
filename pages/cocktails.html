@@ -38,6 +38,17 @@
 
   <h1 class="text-center fw-bold mb-5">Übersicht aller Cocktails</h1>
 
+  <!-- Suchfeld: JS lauscht auf input-Events und filtert die Cards live -->
+  <div class="mb-4">
+    <input
+      type="search"
+      id="search-input"
+      class="form-control form-control-lg"
+      placeholder="Cocktail oder Zutat suchen… (z.B. Rum, Mojito)"
+      autocomplete="off"
+    >
+  </div>
+
   <!-- Leerer Container — wird von app.js mit Karten aus cocktails.json befüllt -->
   <div id="cocktail-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
