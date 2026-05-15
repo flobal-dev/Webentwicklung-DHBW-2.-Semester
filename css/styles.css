@@ -1215,6 +1215,64 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .history-clear { color: var(--tx-d); }
 .history-clear:hover { color: #ff6b8a; border-color: rgba(255,107,138,0.3); background: rgba(255,107,138,0.08); }
 
+/* ── Scroll progress bar ─────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--ac) 0%, #f5ca60 100%);
+  z-index: 1000;
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+/* ── Back to top button ──────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--g2);
+  backdrop-filter: var(--g-blur);
+  -webkit-backdrop-filter: var(--g-blur);
+  border: 1px solid var(--gb);
+  color: var(--tx-m);
+  font-size: 1.05rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--g-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--tb), transform var(--tb), background var(--tf), color var(--tf);
+  z-index: 90;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover {
+  background: var(--g3);
+  transform: translateY(-3px);
+  color: var(--tx);
+  border-color: var(--gb-hi);
+}
+
+/* ── Glass filter row ────────────────────────────────────── */
+.glass-filters-wrap {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gb);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.glass-filters-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tx-d);
+  flex-shrink: 0;
+}
+
 /* Prevent Bootstrap from fighting the design */
 .btn, .badge, .card, .form-control, .list-group-item,
 .navbar, .alert { all: revert; }

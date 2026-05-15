@@ -5,6 +5,7 @@
 let allCocktails   = [];
 let activeCategory = null;
 let activeSort     = 'default';
+let activeGlass    = null;
 
 const FAV_KEY     = 'cp-favorites';
 const HISTORY_KEY = 'cp-search-history';
@@ -264,6 +265,26 @@ function setCategory(cat) {
   applyFilters();
 }
 
+// ── Glass type filter ─────────────────────────────────────────
+function renderGlassFilters() {
+  const wrap = document.getElementById('glass-filters');
+  if (!wrap) return;
+  const glasses = [...new Set(allCocktails.map(c => c.glass))].sort();
+  if (!glasses.length) { wrap.style.display = 'none'; return; }
+  wrap.innerHTML = `
+    <span class="glass-filters-label">Glas:</span>
+    <button class="filter-pill${!activeGlass ? ' active' : ''}" onclick="setGlass(null)">Alle</button>
+    ${glasses.map(g =>
+      `<button class="filter-pill${activeGlass === g ? ' active' : ''}" onclick="setGlass('${g.replace(/'/g,"\\'")}')">🥂 ${g}</button>`
+    ).join('')}`;
+}
+
+function setGlass(g) {
+  activeGlass = g;
+  renderGlassFilters();
+  applyFilters();
+}
+
 // ── Combined filter + sort ────────────────────────────────────
 function applyFilters() {
   const q   = (document.getElementById('search-input')?.value ?? '').trim().toLowerCase();
@@ -277,22 +298,26 @@ function applyFilters() {
     res = res.filter(c => c.categories.includes(activeCategory));
   }
 
+  if (activeGlass) res = res.filter(c => c.glass === activeGlass);
+
   if (q) res = res.filter(c =>
     c.name.toLowerCase().includes(q) ||
     c.ingredients.some(i => i.toLowerCase().includes(q)) ||
     c.tags.some(t => t.toLowerCase().includes(q))
   );
 
-  res.length ? renderCocktails(sortCocktails(res)) : showNoResults(q || activeCategory);
+  res.length ? renderCocktails(sortCocktails(res)) : showNoResults(q || activeCategory || activeGlass);
 }
 
 function clearSearch() {
   const inp = document.getElementById('search-input');
   if (inp) inp.value = '';
   activeCategory = null;
+  activeGlass    = null;
   const sel = document.getElementById('sort-select');
   if (sel) { sel.value = 'default'; activeSort = 'default'; }
   renderCategoryFilters();
+  renderGlassFilters();
   renderCocktails(allCocktails);
   updateHistoryDisplay();
   inp?.focus();
@@ -328,6 +353,7 @@ async function initCocktailList() {
     const preset = new URLSearchParams(window.location.search).get('kategorie');
     if (preset) activeCategory = preset;
     renderCategoryFilters();
+    renderGlassFilters();
     applyFilters();
     document.getElementById('search-input')?.addEventListener('input', handleSearchInput);
     document.getElementById('sort-select')?.addEventListener('change', e => setSort(e.target.value));

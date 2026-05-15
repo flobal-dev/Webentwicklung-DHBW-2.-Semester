@@ -1,5 +1,30 @@
 const THEME_KEY = 'cp-theme';
 
+// Scroll progress bar — thin gold line at top of page
+function initScrollProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = total > 0 ? `${(window.scrollY / total) * 100}%` : '0%';
+  }, { passive: true });
+}
+
+// Back-to-top button — appears after 400px scroll
+function initBackToTop() {
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.innerHTML = '↑';
+  btn.title = 'Nach oben';
+  btn.setAttribute('aria-label', 'Nach oben scrollen');
+  document.body.appendChild(btn);
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+}
+
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-bs-theme', theme);
   const btn = document.getElementById('theme-toggle');
@@ -27,6 +52,8 @@ function updateNavBg() {
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem(THEME_KEY) ?? 'dark';
   applyTheme(saved);
+  initScrollProgress();
+  initBackToTop();
 
   document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
 
