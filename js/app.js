@@ -2,8 +2,9 @@
 // app.js — Cocktailpedia
 // ============================================================
 
-let allCocktails  = [];
+let allCocktails   = [];
 let activeCategory = null;
+let activeSort     = 'default';
 
 const FAV_KEY = 'cp-favorites';
 
@@ -17,7 +18,7 @@ function diffClass(d) {
   return { einfach: 'diff-einfach', mittel: 'diff-mittel', anspruchsvoll: 'diff-anspruchsvoll' }[d] ?? 'diff-einfach';
 }
 
-// ── Favorites ───────────────────────────────────────────────
+// ── Favorites ────────────────────────────────────────────────
 function getFavs() {
   try { return JSON.parse(localStorage.getItem(FAV_KEY) ?? '[]'); }
   catch { return []; }
@@ -39,7 +40,31 @@ function toggleFav(id, el) {
   if (activeCategory === '__favorites__') applyFilters();
 }
 
-// ── Surprise Me ─────────────────────────────────────────────
+// ── Ingredient checklist ─────────────────────────────────────
+function toggleIngCheck(cocktailId, idx, el) {
+  const key   = `cp-check-${cocktailId}`;
+  const state = (() => { try { return JSON.parse(localStorage.getItem(key) ?? '{}'); } catch { return {}; } })();
+  const item  = el.closest('.ing-item');
+  if (el.checked) {
+    state[idx] = true;
+    item.classList.add('checked');
+  } else {
+    delete state[idx];
+    item.classList.remove('checked');
+  }
+  localStorage.setItem(key, JSON.stringify(state));
+}
+
+function resetIngChecks(cocktailId) {
+  localStorage.removeItem(`cp-check-${cocktailId}`);
+  document.querySelectorAll('.ing-item').forEach(item => {
+    item.classList.remove('checked');
+    const cb = item.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = false;
+  });
+}
+
+// ── Surprise Me ──────────────────────────────────────────────
 async function surpriseMe() {
   const btn = document.getElementById('surprise-btn');
   if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
@@ -52,10 +77,43 @@ async function surpriseMe() {
   }
 }
 
+// ── Share ────────────────────────────────────────────────────
+async function shareRecipe(name) {
+  const url = window.location.href;
+  const btn = document.getElementById('share-btn');
+  if (navigator.share) {
+    try { await navigator.share({ title: `${name} – Cocktailpedia`, url }); }
+    catch(e) { /* cancelled */ }
+  } else if (navigator.clipboard) {
+    await navigator.clipboard.writeText(url);
+    if (btn) {
+      btn.textContent = '✓ Kopiert!';
+      setTimeout(() => { btn.textContent = '↗ Teilen'; }, 2000);
+    }
+  }
+}
+
+// ── Sort ─────────────────────────────────────────────────────
+function setSort(val) {
+  activeSort = val;
+  applyFilters();
+}
+
+function sortCocktails(list) {
+  const s = [...list];
+  const diffOrder = { einfach: 1, mittel: 2, anspruchsvoll: 3 };
+  switch (activeSort) {
+    case 'az':    return s.sort((a,b) => a.name.localeCompare(b.name, 'de'));
+    case 'za':    return s.sort((a,b) => b.name.localeCompare(a.name, 'de'));
+    case 'quick': return s.sort((a,b) => a.preparationTime - b.preparationTime);
+    case 'hard':  return s.sort((a,b) => (diffOrder[b.difficulty]??0) - (diffOrder[a.difficulty]??0));
+    default:      return s;
+  }
+}
+
 // ── Cocktail card ────────────────────────────────────────────
 function createCard(cocktail, index = 0) {
-  const favs  = getFavs();
-  const isFav = favs.includes(cocktail.id);
+  const isFav = getFavs().includes(cocktail.id);
   const cats  = cocktail.categories.map(c => `<span class="tag">${c}</span>`).join('');
 
   return `
@@ -128,7 +186,7 @@ function setCategory(cat) {
   applyFilters();
 }
 
-// ── Combined filter ──────────────────────────────────────────
+// ── Combined filter + sort ────────────────────────────────────
 function applyFilters() {
   const q   = (document.getElementById('search-input')?.value ?? '').trim().toLowerCase();
   let   res = allCocktails;
@@ -147,13 +205,15 @@ function applyFilters() {
     c.tags.some(t => t.toLowerCase().includes(q))
   );
 
-  res.length ? renderCocktails(res) : showNoResults(q || activeCategory);
+  res.length ? renderCocktails(sortCocktails(res)) : showNoResults(q || activeCategory);
 }
 
 function clearSearch() {
   const inp = document.getElementById('search-input');
   if (inp) inp.value = '';
   activeCategory = null;
+  const sel = document.getElementById('sort-select');
+  if (sel) { sel.value = 'default'; activeSort = 'default'; }
   renderCategoryFilters();
   renderCocktails(allCocktails);
   inp?.focus();
@@ -191,6 +251,7 @@ async function initCocktailList() {
     renderCategoryFilters();
     applyFilters();
     document.getElementById('search-input')?.addEventListener('input', applyFilters);
+    document.getElementById('sort-select')?.addEventListener('change', e => setSort(e.target.value));
   } catch(e) {
     console.error(e);
     showError();
@@ -229,7 +290,24 @@ function renderDetail(cocktail) {
   document.title = `${cocktail.name} – Cocktailpedia`;
 
   const catBadges = cocktail.categories.map(c => `<span class="tag">${c}</span>`).join('');
-  const ings      = cocktail.ingredients.map(i => `<div class="ing-item">${i}</div>`).join('');
+
+  const checkState = (() => {
+    try { return JSON.parse(localStorage.getItem(`cp-check-${cocktail.id}`) ?? '{}'); }
+    catch { return {}; }
+  })();
+
+  const ings = cocktail.ingredients.map((ing, idx) => {
+    const checked = checkState[idx] === true;
+    return `
+      <label class="ing-item${checked ? ' checked' : ''}">
+        <input type="checkbox" style="display:none" ${checked ? 'checked' : ''}
+               onchange="toggleIngCheck(${cocktail.id},${idx},this)">
+        <span class="ing-cb"></span>
+        <span>${ing}</span>
+      </label>`;
+  }).join('');
+
+  const safeName = cocktail.name.replace(/'/g, "\\'");
 
   wrap.innerHTML = `
     <nav class="bc">
@@ -265,6 +343,8 @@ function renderDetail(cocktail) {
       <div class="glass-panel">
         <h3 class="panel-title">Zutaten</h3>
         <div class="ing-list">${ings}</div>
+        <button class="btn-ghost btn-sm" onclick="resetIngChecks(${cocktail.id})"
+                style="margin-top:1rem;width:100%;justify-content:center">↺ Zurücksetzen</button>
       </div>
       <div class="glass-panel">
         <h3 class="panel-title">Zubereitung</h3>
@@ -272,7 +352,26 @@ function renderDetail(cocktail) {
       </div>
     </div>
 
-    <a href="cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>`;
+    <div style="display:flex;gap:0.75rem;margin-top:1.75rem;flex-wrap:wrap">
+      <a href="cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>
+      <button id="share-btn" class="btn-ghost btn-sm" onclick="shareRecipe('${safeName}')">↗ Teilen</button>
+    </div>`;
+}
+
+// ── Related cocktails ────────────────────────────────────────
+function renderRelated(current, list) {
+  const grid    = document.getElementById('related-grid');
+  const section = document.getElementById('related-section');
+  if (!grid || !section) return;
+
+  const related = list
+    .filter(c => c.id !== current.id && c.categories.some(cat => current.categories.includes(cat)))
+    .slice(0, 3);
+
+  if (!related.length) return;
+
+  section.style.display = '';
+  grid.innerHTML = related.map((c, i) => createCard(c, i)).join('');
 }
 
 function showDetailError(msg) {
@@ -291,8 +390,10 @@ async function initCocktailDetail() {
   if (!id) { showDetailError('Kein Cocktail ausgewählt.'); return; }
   try {
     const list = await fetchCocktails();
-    const c = list.find(x => x.id === id);
-    c ? renderDetail(c) : showDetailError(`Cocktail #${id} nicht gefunden.`);
+    const c    = list.find(x => x.id === id);
+    if (!c) { showDetailError(`Cocktail #${id} nicht gefunden.`); return; }
+    renderDetail(c);
+    renderRelated(c, list);
   } catch(e) {
     console.error(e);
     showDetailError('Cocktail konnte nicht geladen werden. Bitte öffne die Seite über einen lokalen Server.');
@@ -315,18 +416,14 @@ function renderStats(cocktails) {
 function initCotd(cocktails) {
   const el = document.getElementById('cotd');
   if (!el || !cocktails.length) return;
-
-  const start = new Date(new Date().getFullYear(), 0, 0);
+  const start  = new Date(new Date().getFullYear(), 0, 0);
   const dayIdx = Math.floor((Date.now() - start) / 86400000) % cocktails.length;
-  const c = cocktails[dayIdx];
-
-  const cats = c.categories.map(cat => `<span class="tag">${cat}</span>`).join('');
-
+  const c      = cocktails[dayIdx];
+  const cats   = c.categories.map(cat => `<span class="tag">${cat}</span>`).join('');
   el.innerHTML = `
     <div class="cotd-card">
       <div class="cotd-img">
-        <img src="${c.image}" alt="${c.name}"
-             onerror="this.src='cocktails/images/mojito.jpg'">
+        <img src="${c.image}" alt="${c.name}" onerror="this.src='cocktails/images/mojito.jpg'">
       </div>
       <div class="cotd-body">
         <div style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center">
@@ -340,9 +437,7 @@ function initCotd(cocktails) {
           <span>⏱ ${c.preparationTime} Min.</span>
           <span>🍸 ${c.alcohol}</span>
         </div>
-        <div>
-          <a href="cocktail.html?id=${c.id}" class="btn-primary btn-sm">Rezept ansehen</a>
-        </div>
+        <a href="cocktail.html?id=${c.id}" class="btn-primary btn-sm">Rezept ansehen</a>
       </div>
     </div>`;
 }
@@ -361,12 +456,10 @@ async function initHomepage() {
     allCocktails = await fetchCocktails();
     renderStats(allCocktails);
     initCotd(allCocktails);
-
     const featGrid = document.getElementById('featured-grid');
     if (featGrid) {
       featGrid.innerHTML = allCocktails.slice(0, 3).map((c,i) => createCard(c,i)).join('');
     }
-
     renderCatPreview(allCocktails);
   } catch(e) { console.error(e); }
 }

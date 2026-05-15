@@ -59,7 +59,16 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
         <div id="category-filters" class="filter-row" style="flex:1"></div>
-        <button id="surprise-btn" class="btn-ghost btn-sm" onclick="surpriseMe()" style="flex-shrink:0">🎲 Überrasch mich</button>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-shrink:0">
+          <select id="sort-select" class="sort-select">
+            <option value="default">Standard</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+            <option value="quick">⏱ Schnellste</option>
+            <option value="hard">🔥 Schwierigste</option>
+          </select>
+          <button id="surprise-btn" class="btn-ghost btn-sm" onclick="surpriseMe()">🎲 Überrasch mich</button>
+        </div>
       </div>
     </div>
 
