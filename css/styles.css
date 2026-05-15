@@ -1,4 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --cp-bg:      #0e0e0e;
+  --cp-surface: #1a1a1a;
+  --cp-border:  #272727;
+  --cp-text:    #e0e0e0;
+  --cp-muted:   #787878;
+  --cp-accent:  #c9a86c;
+  --cp-radius:  10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--cp-bg);
+  color: var(--cp-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5,
+.card-title,
+.navbar-brand {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #080808 !important;
+  border-bottom: 1px solid var(--cp-border);
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--cp-accent) !important;
+}
+
+/* Cards */
+.card {
+  background-color: var(--cp-surface) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: var(--cp-radius) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+}
+
 .card-img-top {
   height: 200px;
   object-fit: cover;
+  border-radius: var(--cp-radius) var(--cp-radius) 0 0 !important;
+}
+
+.card-title { color: var(--cp-text); }
+
+.card-text {
+  color: var(--cp-muted) !important;
+  font-size: 0.875rem;
+}
+
+/* Primär-Button */
+.btn-primary {
+  background-color: var(--cp-accent);
+  border-color: var(--cp-accent);
+  color: #0e0e0e;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #b8944f;
+  border-color: #b8944f;
+  color: #0e0e0e;
+}
+
+/* Sekundär-Button */
+.btn-outline-secondary {
+  border-color: var(--cp-border);
+  color: var(--cp-muted);
+  border-radius: 6px;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--cp-surface);
+  border-color: var(--cp-accent);
+  color: var(--cp-text);
+}
+
+/* Kategorie-Buttons: aktiver Button in Gold */
+#category-filters .btn-dark {
+  background-color: var(--cp-accent);
+  border-color: var(--cp-accent);
+  color: #0e0e0e;
+  font-weight: 500;
+}
+
+/* Suchfeld */
+.form-control {
+  background-color: var(--cp-surface);
+  border-color: var(--cp-border);
+  color: var(--cp-text);
+  border-radius: 8px;
+}
+
+.form-control:focus {
+  background-color: var(--cp-surface);
+  border-color: var(--cp-accent);
+  color: var(--cp-text);
+  box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.15);
+}
+
+.form-control::placeholder { color: var(--cp-muted); }
+
+/* Zutatenliste auf Detailseite */
+.list-group-item {
+  background-color: transparent;
+  border-color: var(--cp-border);
+  color: var(--cp-text);
+  font-size: 0.9rem;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+  color: var(--cp-accent);
+  text-decoration: none;
+}
+
+.breadcrumb-item.active { color: var(--cp-muted); }
+
+.breadcrumb-item + .breadcrumb-item::before { color: var(--cp-border); }
+
+/* Badges */
+.badge.bg-secondary {
+  background-color: var(--cp-border) !important;
+  color: var(--cp-muted);
+  font-weight: 400;
+}
+
+/* Footer */
+footer {
+  background-color: #080808 !important;
+  border-top: 1px solid var(--cp-border);
+  color: var(--cp-muted) !important;
+}
+
+/* Alert-Platzhalter auf leeren Seiten */
+.alert-secondary {
+  background-color: var(--cp-surface);
+  border-color: var(--cp-border);
+  color: var(--cp-muted);
 }
