@@ -57,7 +57,10 @@
           autocomplete="off"
         >
       </div>
-      <div id="category-filters" class="filter-row"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div id="category-filters" class="filter-row" style="flex:1"></div>
+        <button id="surprise-btn" class="btn-ghost btn-sm" onclick="surpriseMe()" style="flex-shrink:0">🎲 Überrasch mich</button>
+      </div>
     </div>
 
     <!-- Card grid — filled by app.js -->

@@ -48,6 +48,7 @@
     <div class="hero-cta">
       <a href="cocktails.html" class="btn-primary">Cocktails entdecken</a>
       <a href="kategorien.html" class="btn-ghost">Nach Kategorie</a>
+      <button id="surprise-btn" class="btn-ghost" onclick="surpriseMe()">🎲 Überrasch mich</button>
     </div>
   </section>
 
@@ -60,6 +61,17 @@
       <div class="stat-item"><span class="stat-value">100%</span><span class="stat-label">Kostenlos</span></div>
     </div>
   </div>
+
+  <!-- ── Cocktail des Tages ───────────────────────────────── -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-label">Täglich wechselnd</span>
+      <h2 class="section-title">Cocktail des Tages</h2>
+    </div>
+    <div id="cotd">
+      <div class="empty-state"><div class="empty-icon">🍹</div><p class="empty-msg">Wird geladen…</p></div>
+    </div>
+  </section>
 
   <!-- ── Featured cocktails ────────────────────────────────── -->
   <section class="section">
