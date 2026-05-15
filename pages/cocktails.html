@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alle Cocktails – Cocktailpedia</title>
+  <meta name="description" content="Alle Cocktails auf Cocktailpedia – suche und filtere nach Kategorie, Zutaten oder Name.">
+  <meta property="og:title" content="Alle Cocktails – Cocktailpedia">
+  <meta property="og:description" content="Von Klassikern bis zu exotischen Geheimtipps – suche, filter und entdecke.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../css/styles.css">
   <script>const t=localStorage.getItem("cp-theme");if(t)document.documentElement.setAttribute("data-bs-theme",t);</script>
 </head>
@@ -57,6 +62,7 @@
           autocomplete="off"
         >
       </div>
+      <div id="search-history" class="search-history" style="display:none"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
         <div id="category-filters" class="filter-row" style="flex:1"></div>
         <div style="display:flex;gap:0.5rem;align-items:center;flex-shrink:0">

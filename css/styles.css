@@ -1184,6 +1184,37 @@ button { cursor: pointer; font-family: inherit; border: none; }
   .diff-badge { color: #111 !important; }
 }
 
+/* ── Search history ─────────────────────────────────────── */
+.search-history {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.history-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tx-d);
+  margin-right: 0.2rem;
+}
+.history-chip {
+  padding: 0.22rem 0.75rem;
+  background: var(--g1);
+  border: 1px solid var(--gb);
+  border-radius: var(--r-p);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  color: var(--tx-m);
+  cursor: pointer;
+  transition: all var(--tf);
+}
+.history-chip:hover { background: var(--g2); color: var(--tx); border-color: var(--gb-hi); }
+.history-clear { color: var(--tx-d); }
+.history-clear:hover { color: #ff6b8a; border-color: rgba(255,107,138,0.3); background: rgba(255,107,138,0.08); }
+
 /* Prevent Bootstrap from fighting the design */
 .btn, .badge, .card, .form-control, .list-group-item,
 .navbar, .alert { all: revert; }

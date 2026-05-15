@@ -6,7 +6,8 @@ let allCocktails   = [];
 let activeCategory = null;
 let activeSort     = 'default';
 
-const FAV_KEY = 'cp-favorites';
+const FAV_KEY     = 'cp-favorites';
+const HISTORY_KEY = 'cp-search-history';
 
 async function fetchCocktails() {
   const res = await fetch('../data/cocktails.json');
@@ -16,6 +17,36 @@ async function fetchCocktails() {
 
 function diffClass(d) {
   return { einfach: 'diff-einfach', mittel: 'diff-mittel', anspruchsvoll: 'diff-anspruchsvoll' }[d] ?? 'diff-einfach';
+}
+
+// ── Scroll Reveal ────────────────────────────────────────────
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+
+  const sel = [
+    '.section-header', '.stats-glass', '.search-panel',
+    '.glass-panel', '.team-card', '.tech-row', '.cotd-card'
+  ].join(', ');
+
+  const els = document.querySelectorAll(sel);
+  const vph = window.innerHeight;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity   = '1';
+        e.target.style.transform = 'none';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -24px 0px' });
+
+  els.forEach(el => {
+    if (el.getBoundingClientRect().top >= vph * 0.88) {
+      el.style.cssText += ';opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease';
+      observer.observe(el);
+    }
+  });
 }
 
 // ── Favorites ────────────────────────────────────────────────
@@ -45,13 +76,8 @@ function toggleIngCheck(cocktailId, idx, el) {
   const key   = `cp-check-${cocktailId}`;
   const state = (() => { try { return JSON.parse(localStorage.getItem(key) ?? '{}'); } catch { return {}; } })();
   const item  = el.closest('.ing-item');
-  if (el.checked) {
-    state[idx] = true;
-    item.classList.add('checked');
-  } else {
-    delete state[idx];
-    item.classList.remove('checked');
-  }
+  if (el.checked) { state[idx] = true; item.classList.add('checked'); }
+  else            { delete state[idx]; item.classList.remove('checked'); }
   localStorage.setItem(key, JSON.stringify(state));
 }
 
@@ -108,6 +134,58 @@ function sortCocktails(list) {
     case 'quick': return s.sort((a,b) => a.preparationTime - b.preparationTime);
     case 'hard':  return s.sort((a,b) => (diffOrder[b.difficulty]??0) - (diffOrder[a.difficulty]??0));
     default:      return s;
+  }
+}
+
+// ── Search history ───────────────────────────────────────────
+function getSearchHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]'); }
+  catch { return []; }
+}
+
+function saveSearch(query) {
+  const history  = getSearchHistory().filter(h => h !== query);
+  history.unshift(query);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 5)));
+  updateHistoryDisplay();
+}
+
+function updateHistoryDisplay() {
+  const el = document.getElementById('search-history');
+  if (!el) return;
+
+  const q       = (document.getElementById('search-input')?.value ?? '').trim();
+  const history = getSearchHistory();
+
+  if (!history.length || q) { el.style.display = 'none'; return; }
+
+  el.style.display = 'flex';
+  el.innerHTML = `
+    <span class="history-label">Zuletzt:</span>
+    ${history.map((h, i) => `<button class="history-chip" data-idx="${i}">${h}</button>`).join('')}
+    <button class="history-chip history-clear" data-action="clear">✕ Löschen</button>`;
+
+  el.querySelectorAll('[data-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const inp = document.getElementById('search-input');
+      if (inp) { inp.value = getSearchHistory()[+btn.dataset.idx] ?? ''; applyFilters(); updateHistoryDisplay(); }
+    });
+  });
+  el.querySelector('[data-action="clear"]')?.addEventListener('click', () => {
+    localStorage.removeItem(HISTORY_KEY);
+    updateHistoryDisplay();
+  });
+}
+
+let searchSaveTimer = null;
+
+function handleSearchInput() {
+  applyFilters();
+  updateHistoryDisplay();
+  const q = (document.getElementById('search-input')?.value ?? '').trim();
+  clearTimeout(searchSaveTimer);
+  if (q.length >= 2) {
+    searchSaveTimer = setTimeout(() => saveSearch(q), 700);
   }
 }
 
@@ -216,6 +294,7 @@ function clearSearch() {
   if (sel) { sel.value = 'default'; activeSort = 'default'; }
   renderCategoryFilters();
   renderCocktails(allCocktails);
+  updateHistoryDisplay();
   inp?.focus();
 }
 
@@ -250,8 +329,10 @@ async function initCocktailList() {
     if (preset) activeCategory = preset;
     renderCategoryFilters();
     applyFilters();
-    document.getElementById('search-input')?.addEventListener('input', applyFilters);
+    document.getElementById('search-input')?.addEventListener('input', handleSearchInput);
     document.getElementById('sort-select')?.addEventListener('change', e => setSort(e.target.value));
+    updateHistoryDisplay();
+    initScrollReveal();
   } catch(e) {
     console.error(e);
     showError();
@@ -271,7 +352,7 @@ async function initCategories() {
     if (!grid) return;
     const cats = [...new Set(allCocktails.flatMap(c => c.categories))].sort();
     grid.innerHTML = cats.map(cat => {
-      const n = allCocktails.filter(c => c.categories.includes(cat)).length;
+      const n     = allCocktails.filter(c => c.categories.includes(cat)).length;
       const emoji = CAT_EMOJI[cat] ?? '🍸';
       return `
         <a href="cocktails.html?kategorie=${encodeURIComponent(cat)}" class="cat-card">
@@ -280,17 +361,31 @@ async function initCategories() {
           <span class="cat-count">${n} Cocktail${n !== 1 ? 's' : ''}</span>
         </a>`;
     }).join('');
+    initScrollReveal();
   } catch(e) { console.error(e); }
 }
 
 // ── Detail page ──────────────────────────────────────────────
+function setMeta(selector, content) {
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute('content', content);
+}
+
 function renderDetail(cocktail) {
   const wrap = document.getElementById('cocktail-detail');
   if (!wrap) return;
+
   document.title = `${cocktail.name} – Cocktailpedia`;
+  setMeta('meta[name="description"]',        `${cocktail.name}: ${cocktail.description}`);
+  setMeta('meta[property="og:title"]',       `${cocktail.name} – Cocktailpedia`);
+  setMeta('meta[property="og:description"]', cocktail.description);
+  setMeta('meta[name="twitter:title"]',      `${cocktail.name} – Cocktailpedia`);
+  setMeta('meta[name="twitter:description"]', cocktail.description);
+  const absImg = new URL(cocktail.image, window.location.href).href;
+  setMeta('meta[property="og:image"]',   absImg);
+  setMeta('meta[name="twitter:image"]',  absImg);
 
   const catBadges = cocktail.categories.map(c => `<span class="tag">${c}</span>`).join('');
-
   const checkState = (() => {
     try { return JSON.parse(localStorage.getItem(`cp-check-${cocktail.id}`) ?? '{}'); }
     catch { return {}; }
@@ -356,6 +451,8 @@ function renderDetail(cocktail) {
       <a href="cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>
       <button id="share-btn" class="btn-ghost btn-sm" onclick="shareRecipe('${safeName}')">↗ Teilen</button>
     </div>`;
+
+  initScrollReveal();
 }
 
 // ── Related cocktails ────────────────────────────────────────
@@ -369,7 +466,6 @@ function renderRelated(current, list) {
     .slice(0, 3);
 
   if (!related.length) return;
-
   section.style.display = '';
   grid.innerHTML = related.map((c, i) => createCard(c, i)).join('');
 }
@@ -461,6 +557,7 @@ async function initHomepage() {
       featGrid.innerHTML = allCocktails.slice(0, 3).map((c,i) => createCard(c,i)).join('');
     }
     renderCatPreview(allCocktails);
+    initScrollReveal();
   } catch(e) { console.error(e); }
 }
 
