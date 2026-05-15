@@ -198,6 +198,26 @@ footer {
   background-color: #ffffff !important;
 }
 
+/* navbar-dark setzt Text fix auf weiß — im Light Mode überschreiben */
+[data-bs-theme="light"] .navbar .navbar-brand,
+[data-bs-theme="light"] .navbar .nav-link {
+  color: #1a1a1a !important;
+}
+
+[data-bs-theme="light"] .navbar .nav-link:hover,
+[data-bs-theme="light"] .navbar .nav-link.active {
+  color: var(--cp-accent) !important;
+}
+
+[data-bs-theme="light"] .navbar-toggler {
+  border-color: rgba(0, 0, 0, 0.2);
+  filter: invert(1);
+}
+
 [data-bs-theme="light"] footer {
   background-color: #eeeeec !important;
+}
+
+[data-bs-theme="light"] footer small {
+  color: #666666 !important;
 }
