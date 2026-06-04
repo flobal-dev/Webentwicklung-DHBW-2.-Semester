@@ -201,5 +201,286 @@
     "preparationTime": 2,
     "alcoholFree": false,
     "tags": ["leicht", "fruchtig", "einfach"]
+  },
+  {
+    "id": 11,
+    "name": "Aviation",
+    "alcohol": "Gin",
+    "ingredients": [
+      "4 cl Gin",
+      "1,5 cl Maraschino-Likör",
+      "1,5 cl frischer Zitronensaft",
+      "0,5 cl Crème de Violette"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Eleganter Gin-Klassiker mit Veilchenlikör und zartem Lavendel-Ton.",
+    "preparation": "Alle Zutaten mit Eiswürfeln shaken und in eine vorgekühlte Cocktailschale (Coupette) abseihen. Mit einer Cocktailkirsche garnieren.",
+    "image": "assets/cocktails/aviation.jpg",
+    "difficulty": "mittel",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["gin", "elegant", "klassisch", "shaker"]
+  },
+  {
+    "id": 12,
+    "name": "Bee's Knees",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "2 cl frischer Zitronensaft",
+      "2 cl Honigsirup (Honig und Wasser 1:1)"
+    ],
+    "glass": "Cocktailglas",
+    "categories": ["Klassiker"],
+    "description": "Prohibitions-Klassiker mit Gin, Zitrone und süßlichem Honig.",
+    "preparation": "Alle Zutaten im Shaker mit Eis kräftig schütteln und in ein Cocktailglas abseihen. Mit einer Zitronenzeste garnieren.",
+    "image": "assets/cocktails/beeknees.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 4,
+    "alcoholFree": false,
+    "tags": ["gin", "honig", "klassisch", "süß"]
+  },
+  {
+    "id": 13,
+    "name": "Bramble",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "2 cl frischer Zitronensaft",
+      "1 cl Zuckersirup",
+      "1,5 cl Brombeerlikör (z. B. Crème de Mûre)"
+    ],
+    "glass": "Tumbler",
+    "categories": ["Klassiker", "Sommer"],
+    "description": "Britischer Modern Classic mit Gin, Zitrone und Brombeerlikör auf Crushed Ice.",
+    "preparation": "Gin, Zitronensaft und Zuckersirup mit Eis shaken. In ein mit Crushed Ice gefülltes Tumbler-Glas abseihen. Den Brombeerlikör zum Schluss vorsichtig über das Eis gießen. Mit frischen Brombeeren garnieren.",
+    "image": "assets/cocktails/Bramblef.webp",
+    "difficulty": "mittel",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["gin", "beere", "sommer", "fruchtig"]
+  },
+  {
+    "id": 14,
+    "name": "Bronx Cocktail",
+    "alcohol": "Gin",
+    "ingredients": [
+      "4 cl Gin",
+      "1,5 cl roter Wermut (süß)",
+      "1,5 cl weißer Wermut (trocken)",
+      "1,5 cl Orangensaft"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Klassischer Pre-Prohibition-Cocktail mit Gin, doppeltem Wermut und Orange.",
+    "preparation": "Alle Zutaten mit Eis shaken und in eine gekühlte Cocktailschale abseihen.",
+    "image": "assets/cocktails/bronx_cocktail.jpg",
+    "difficulty": "einfach",
+    "preparationTime": 4,
+    "alcoholFree": false,
+    "tags": ["gin", "wermut", "klassisch", "shaker"]
+  },
+  {
+    "id": 15,
+    "name": "Clover Club",
+    "alcohol": "Gin",
+    "ingredients": [
+      "4 cl Gin",
+      "1,5 cl Zitronensaft",
+      "1,5 cl Himbeersirup",
+      "1 frisches Eiweiß"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Rosa Klassiker mit Gin und Himbeere, gekrönt von cremigem Eiweißschaum.",
+    "preparation": "Zuerst alle Zutaten ohne Eis kräftig shaken (Dry Shake), um das Eiweiß schaumig zu schlagen. Dann Eis hinzufügen, erneut shaken und in eine Cocktailschale abseihen.",
+    "image": "assets/cocktails/clover_club.jpg",
+    "difficulty": "mittel",
+    "preparationTime": 6,
+    "alcoholFree": false,
+    "tags": ["gin", "himbeere", "schaum", "klassisch"]
+  },
+  {
+    "id": 16,
+    "name": "French 75",
+    "alcohol": "Gin, Champagner",
+    "ingredients": [
+      "3 cl Gin",
+      "1,5 cl Zitronensaft",
+      "1 cl Zuckersirup",
+      "Champagner (oder trockener Sekt) zum Auffüllen"
+    ],
+    "glass": "Champagnerglas",
+    "categories": ["Klassiker", "Aperitif"],
+    "description": "Festlicher Klassiker mit Gin, Zitrone und Champagner – spritzig und elegant.",
+    "preparation": "Gin, Zitronensaft und Sirup mit Eis shaken und in ein Champagnerglas abseihen. Mit Champagner aufgießen und vorsichtig umrühren.",
+    "image": "assets/cocktails/french_75.jpg",
+    "difficulty": "mittel",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["gin", "champagner", "elegant", "spritzig"]
+  },
+  {
+    "id": 17,
+    "name": "Geeister Mango-Gin mit Ginger Beer",
+    "alcohol": "Gin",
+    "ingredients": [
+      "½ Mango",
+      "Saft von ½ Limette",
+      "½ TL Zucker",
+      "25 ml Ginger Beer",
+      "30 ml Gin",
+      "3 Eiswürfel",
+      "2-3 Zweige Rosmarin",
+      "3-4 Stiele Minze"
+    ],
+    "glass": "Tumbler",
+    "categories": ["Sommer", "Exotisch"],
+    "description": "Sorbet-artiger Sommerdrink mit Mango, Gin und Ginger Beer – Rosmarin und Minze für die Frische.",
+    "preparation": "Mango vom Stein schneiden, Fruchtfleisch schälen und in grobe Stücke schneiden. Mango, Limettensaft, Zucker, Ginger Beer, Gin und Eiswürfel in einen Standmixer geben und so lange mixen, bis eine cremige, sorbet-ähnliche Konsistenz entsteht. Rosmarin und Minze waschen und trocken tupfen, Minzblätter von den Stielen zupfen. Mango-Masse in Gläser füllen und Rosmarin und Minze darin verteilen.",
+    "image": "assets/cocktails/geeister_mango_gin.webp",
+    "difficulty": "mittel",
+    "preparationTime": 10,
+    "alcoholFree": false,
+    "tags": ["gin", "mango", "frozen", "sommer", "fruchtig"]
+  },
+  {
+    "id": 18,
+    "name": "Gimlet",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "2 cl Lime Juice Cordial",
+      "1 cl frischer Limettensaft"
+    ],
+    "glass": "Cocktailglas",
+    "categories": ["Klassiker"],
+    "description": "Schnörkelloser Klassiker aus Gin und Limette – knackig und trocken.",
+    "preparation": "Alle Zutaten mit Eis kräftig schütteln und in ein Cocktailglas oder einen Tumbler auf frisches Eis abseihen. Mit einer Limettenscheibe garnieren.",
+    "image": "assets/cocktails/gimlet.webp",
+    "difficulty": "einfach",
+    "preparationTime": 3,
+    "alcoholFree": false,
+    "tags": ["gin", "limette", "klassisch", "trocken"]
+  },
+  {
+    "id": 19,
+    "name": "Gin Basil Smash",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "2 cl Zitronensaft",
+      "2 cl Zuckersirup",
+      "10-15 frische Basilikumblätter"
+    ],
+    "glass": "Tumbler",
+    "categories": ["Klassiker", "Sommer"],
+    "description": "Hamburger Modern Classic mit Gin, Zitrone und frischem Basilikum.",
+    "preparation": "Basilikum zusammen mit dem Zuckersirup im Shaker leicht andrücken (muddeln). Gin und Zitronensaft dazugeben, mit Eis auffüllen und sehr kräftig shaken. Doppelt (durch ein feines Sieb) in einen Tumbler mit Eis abseihen.",
+    "image": "assets/cocktails/gin_basil_smash.webp",
+    "difficulty": "mittel",
+    "preparationTime": 6,
+    "alcoholFree": false,
+    "tags": ["gin", "basilikum", "kräuter", "sommer"]
+  },
+  {
+    "id": 20,
+    "name": "Martinez",
+    "alcohol": "Gin",
+    "ingredients": [
+      "4 cl Old Tom Gin",
+      "4 cl roter Wermut",
+      "1 Barlöffel Maraschino-Likör",
+      "2 Dashes Angostura Bitter"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Sanfter Urahn des Martinis – mit süßem Wermut und Maraschino abgerundet.",
+    "preparation": "Im Rührglas mit Eis kalt rühren. In eine gekühlte Cocktailschale abseihen und mit einer Zitronenzeste abspritzen.",
+    "image": "assets/cocktails/martinez.webp",
+    "difficulty": "mittel",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["gin", "wermut", "klassisch", "stirred"]
+  },
+  {
+    "id": 21,
+    "name": "Red Snapper",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "10 cl Tomatensaft",
+      "1,5 cl Zitronensaft",
+      "Tabasco",
+      "Worcestersauce",
+      "Prise Salz & Pfeffer"
+    ],
+    "glass": "Longdrink-Glas",
+    "categories": ["Klassiker", "Party"],
+    "description": "Die Gin-Variante der Bloody Mary – herzhaft, würzig und perfekt für den Brunch.",
+    "preparation": "Alle Zutaten mit Eiswürfeln shaken oder direkt im Glas verrühren. In einem Longdrinkglas mit einer Selleriestange garnieren.",
+    "image": "assets/cocktails/red_snapper.webp",
+    "difficulty": "einfach",
+    "preparationTime": 5,
+    "alcoholFree": false,
+    "tags": ["gin", "tomate", "herzhaft", "brunch"]
+  },
+  {
+    "id": 22,
+    "name": "Salty Dog",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "10 cl Grapefruitsaft",
+      "Grobes Salz für den Rand"
+    ],
+    "glass": "Tumbler",
+    "categories": ["Sommer"],
+    "description": "Erfrischender Longdrink aus Gin und Grapefruit mit gesalzenem Glasrand.",
+    "preparation": "Den Rand eines Tumblers mit einer Limette befeuchten und in Salz tauchen. Eis, Gin und Grapefruitsaft hineingeben und umrühren.",
+    "image": "assets/cocktails/saltydog.webp",
+    "difficulty": "einfach",
+    "preparationTime": 3,
+    "alcoholFree": false,
+    "tags": ["gin", "grapefruit", "sommer", "erfrischend"]
+  },
+  {
+    "id": 23,
+    "name": "Vesper Martini",
+    "alcohol": "Gin, Wodka",
+    "ingredients": [
+      "6 cl Gin",
+      "2 cl Wodka",
+      "1 cl Lillet Blanc"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Der berühmte James-Bond-Cocktail – kräftig, klar und auf den Punkt.",
+    "preparation": "Alle Zutaten im Shaker kräftig auf Eis schütteln (geschüttelt, nicht gerührt). In eine Cocktailschale abseihen und mit einer großen Zitronenzeste garnieren.",
+    "image": "assets/cocktails/vesper_martini.jpg",
+    "difficulty": "mittel",
+    "preparationTime": 4,
+    "alcoholFree": false,
+    "tags": ["gin", "wodka", "klassisch", "bond"]
+  },
+  {
+    "id": 24,
+    "name": "White Lady",
+    "alcohol": "Gin",
+    "ingredients": [
+      "5 cl Gin",
+      "2 cl Cointreau",
+      "2 cl frischer Zitronensaft"
+    ],
+    "glass": "Cocktailschale",
+    "categories": ["Klassiker"],
+    "description": "Eleganter Sour-Klassiker mit Gin, Orangenlikör und Zitrone.",
+    "preparation": "Alle Zutaten mit Eis im Shaker kräftig schütteln und in eine gekühlte Cocktailschale abseihen.",
+    "image": "assets/cocktails/white_lady.webp",
+    "difficulty": "einfach",
+    "preparationTime": 4,
+    "alcoholFree": false,
+    "tags": ["gin", "zitrus", "klassisch", "sour"]
   }
 ]
