@@ -687,7 +687,99 @@ button { cursor: pointer; font-family: inherit; border: none; }
 .detail-hero img {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center;
 }
+
+/* Card-Bilder zentrieren, damit Motiv mittig bleibt */
+.ccard__img img,
+.cotd-img img { object-position: center; }
+
+/* Video-Badge auf Karten */
+.video-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-p);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ac);
+  z-index: 2;
+}
+
+/* Hero-Video: Click-to-Play */
+.detail-hero--video { cursor: pointer; }
+
+.hero-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.hero-video img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.72);
+  transition: filter var(--tb);
+}
+.hero-video:hover img { filter: brightness(0.55); }
+
+.hero-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.95rem 1.6rem;
+  background: rgba(232,184,75,0.92);
+  color: #0e0c06;
+  border-radius: var(--r-p);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5), var(--ac-glow);
+  transition: transform var(--tb), background var(--tb);
+  z-index: 2;
+}
+.hero-video:hover .hero-play-btn {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: #f5ca60;
+}
+.hero-play-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem; height: 1.6rem;
+  border-radius: 50%;
+  background: #0e0c06;
+  color: var(--ac);
+  font-size: 0.7rem;
+  padding-left: 0.15rem;
+}
+
+/* Aktiver Video-Player: ohne Beschneidung (object-fit: contain) */
+.hero-video--playing { background: #000; cursor: default; }
+.hero-video__player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
+}
+
+/* Während Video läuft: Overlay (Titel/Schatten) ausblenden, damit nichts verdeckt wird */
+.detail-hero--playing .detail-hero__overlay { display: none; }
 .detail-hero__overlay {
   position: absolute;
   inset: 0;

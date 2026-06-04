@@ -10,8 +10,15 @@ let activeGlass    = null;
 const FAV_KEY     = 'cp-favorites';
 const HISTORY_KEY = 'cp-search-history';
 
+// Pfad-Helpers: index.html liegt im Root, alle anderen Seiten in /pages/
+const IN_PAGES = window.location.pathname.includes('/pages/');
+const BASE     = IN_PAGES ? '../' : './';      // -> data/, assets/, css/, js/
+const PAGES    = IN_PAGES ? ''    : 'pages/';  // -> cocktail.html, kategorien.html, ...
+const FALLBACK_IMG = BASE + 'assets/cocktails/mojito.jpg';
+const imgPath  = (p) => BASE + p;
+
 async function fetchCocktails() {
-  const res = await fetch('../data/cocktails.json');
+  const res = await fetch(BASE + 'data/cocktails.json');
   if (!res.ok) throw new Error('cocktails.json konnte nicht geladen werden');
   return res.json();
 }
@@ -98,7 +105,7 @@ async function surpriseMe() {
   try {
     const list = allCocktails.length ? allCocktails : await fetchCocktails();
     const pick = list[Math.floor(Math.random() * list.length)];
-    window.location.href = `cocktail.html?id=${pick.id}`;
+    window.location.href = `${PAGES}cocktail.html?id=${pick.id}`;
   } catch(e) {
     if (btn) { btn.textContent = '🎲 Überrasch mich'; btn.disabled = false; }
   }
@@ -195,15 +202,18 @@ function createCard(cocktail, index = 0) {
   const isFav = getFavs().includes(cocktail.id);
   const cats  = cocktail.categories.map(c => `<span class="tag">${c}</span>`).join('');
 
+  const videoBadge = cocktail.video ? '<span class="video-badge" title="Mit Video">▶ Video</span>' : '';
+
   return `
     <article class="ccard" style="animation-delay:${index * 0.07}s">
       <div class="ccard__img">
-        <img src="${cocktail.image}" alt="${cocktail.name}"
-             onerror="this.src='cocktails/images/mojito.jpg'">
+        <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
+             onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
         <div class="ccard__img-grad"></div>
         <div class="ccard__badge">
           <span class="diff-badge ${diffClass(cocktail.difficulty)}">${cocktail.difficulty}</span>
         </div>
+        ${videoBadge}
         <button class="fav-btn${isFav ? ' active' : ''}"
                 onclick="toggleFav(${cocktail.id},this)"
                 title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}"
@@ -218,7 +228,7 @@ function createCard(cocktail, index = 0) {
           <span>🍸 ${cocktail.alcohol}</span>
         </div>
         <div class="ccard__cta">
-          <a href="cocktail.html?id=${cocktail.id}" class="btn-primary btn-sm">Details ansehen</a>
+          <a href="${PAGES}cocktail.html?id=${cocktail.id}" class="btn-primary btn-sm">Details ansehen</a>
         </div>
       </div>
     </article>`;
@@ -381,7 +391,7 @@ async function initCategories() {
       const n     = allCocktails.filter(c => c.categories.includes(cat)).length;
       const emoji = CAT_EMOJI[cat] ?? '🍸';
       return `
-        <a href="cocktails.html?kategorie=${encodeURIComponent(cat)}" class="cat-card">
+        <a href="${PAGES}cocktails.html?kategorie=${encodeURIComponent(cat)}" class="cat-card">
           <span class="cat-icon">${emoji}</span>
           <span class="cat-name">${cat}</span>
           <span class="cat-count">${n} Cocktail${n !== 1 ? 's' : ''}</span>
@@ -407,7 +417,7 @@ function renderDetail(cocktail) {
   setMeta('meta[property="og:description"]', cocktail.description);
   setMeta('meta[name="twitter:title"]',      `${cocktail.name} – Cocktailpedia`);
   setMeta('meta[name="twitter:description"]', cocktail.description);
-  const absImg = new URL(cocktail.image, window.location.href).href;
+  const absImg = new URL(imgPath(cocktail.image), window.location.href).href;
   setMeta('meta[property="og:image"]',   absImg);
   setMeta('meta[name="twitter:image"]',  absImg);
 
@@ -430,18 +440,33 @@ function renderDetail(cocktail) {
 
   const safeName = cocktail.name.replace(/'/g, "\\'");
 
+  // Hero-Media: Wenn ein Video vorhanden ist, click-to-play (Poster -> Video)
+  const hasVideo = !!cocktail.video;
+  const heroMedia = hasVideo
+    ? `
+      <div class="hero-video" id="hero-video" onclick="playHeroVideo('${imgPath(cocktail.video)}')">
+        <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
+             onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+        <button class="hero-play-btn" type="button" aria-label="Video abspielen">
+          <span class="hero-play-icon">▶</span>
+          <span class="hero-play-label">Video ansehen</span>
+        </button>
+      </div>`
+    : `
+      <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
+           onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">`;
+
   wrap.innerHTML = `
     <nav class="bc">
-      <a href="index.html">Home</a>
+      <a href="${BASE}index.html">Home</a>
       <span class="bc-sep">/</span>
-      <a href="cocktails.html">Cocktails</a>
+      <a href="${PAGES}cocktails.html">Cocktails</a>
       <span class="bc-sep">/</span>
       <span>${cocktail.name}</span>
     </nav>
 
-    <div class="detail-hero">
-      <img src="${cocktail.image}" alt="${cocktail.name}"
-           onerror="this.src='cocktails/images/mojito.jpg'">
+    <div class="detail-hero${hasVideo ? ' detail-hero--video' : ''}">
+      ${heroMedia}
       <div class="detail-hero__overlay">
         <div class="detail-meta-row">
           ${catBadges}
@@ -474,7 +499,7 @@ function renderDetail(cocktail) {
     </div>
 
     <div style="display:flex;gap:0.75rem;margin-top:1.75rem;flex-wrap:wrap">
-      <a href="cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>
+      <a href="${PAGES}cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>
       <button id="share-btn" class="btn-ghost btn-sm" onclick="shareRecipe('${safeName}')">↗ Teilen</button>
     </div>`;
 
@@ -545,7 +570,7 @@ function initCotd(cocktails) {
   el.innerHTML = `
     <div class="cotd-card">
       <div class="cotd-img">
-        <img src="${c.image}" alt="${c.name}" onerror="this.src='cocktails/images/mojito.jpg'">
+        <img src="${imgPath(c.image)}" alt="${c.name}" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
       </div>
       <div class="cotd-body">
         <div style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center">
@@ -559,7 +584,7 @@ function initCotd(cocktails) {
           <span>⏱ ${c.preparationTime} Min.</span>
           <span>🍸 ${c.alcohol}</span>
         </div>
-        <a href="cocktail.html?id=${c.id}" class="btn-primary btn-sm">Rezept ansehen</a>
+        <a href="${PAGES}cocktail.html?id=${c.id}" class="btn-primary btn-sm">Rezept ansehen</a>
       </div>
     </div>`;
 }
@@ -569,8 +594,32 @@ function renderCatPreview(cocktails) {
   if (!el) return;
   const cats = [...new Set(cocktails.flatMap(c => c.categories))].sort();
   el.innerHTML = cats.map(cat =>
-    `<a href="cocktails.html?kategorie=${encodeURIComponent(cat)}" class="filter-pill">${cat}</a>`
+    `<a href="${PAGES}cocktails.html?kategorie=${encodeURIComponent(cat)}" class="filter-pill">${cat}</a>`
   ).join('');
+}
+
+// ── Hero-Video Click-to-Play ─────────────────────────────────
+function playHeroVideo(src) {
+  const box  = document.getElementById('hero-video');
+  if (!box) return;
+  const hero = box.closest('.detail-hero');
+
+  const posterHTML = box.innerHTML;
+  box.innerHTML = `
+    <video src="${src}" controls autoplay playsinline
+           preload="metadata" class="hero-video__player"></video>`;
+  box.classList.add('hero-video--playing');
+  hero?.classList.add('detail-hero--playing');
+  box.onclick = null;
+
+  // Nach Ende: Poster wiederherstellen, damit erneut abgespielt werden kann
+  const video = box.querySelector('video');
+  video?.addEventListener('ended', () => {
+    box.innerHTML = posterHTML;
+    box.classList.remove('hero-video--playing');
+    hero?.classList.remove('detail-hero--playing');
+    box.onclick = () => playHeroVideo(src);
+  });
 }
 
 async function initHomepage() {
