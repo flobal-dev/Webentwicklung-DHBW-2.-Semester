@@ -10,7 +10,7 @@
       "Zucker",
       "Soda"
     ],
-    "glass": "Highball-Glas",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Klassiker", "Sommer"],
     "description": "Erfrischender kubanischer Klassiker mit Rum, Minze und Limette.",
     "preparation": "Minze und Limette im Glas zerdrücken, Zucker und Rum hinzufügen, mit Soda auffüllen.",
@@ -30,7 +30,7 @@
       "2 cl Soda",
       "Orangenscheibe"
     ],
-    "glass": "Weinglas",
+    "glass": "Weinglas / bauchiges Spritz-Glas",
     "categories": ["Klassiker", "Sommer", "Aperitif"],
     "description": "Beliebter Aperitif aus Italien mit Prosecco, Aperol und Soda.",
     "preparation": "Prosecco, Aperol und Soda in ein Glas mit Eis geben und leicht umrühren. Mit einer Orangenscheibe garnieren.",
@@ -50,8 +50,8 @@
       "2 cl Zitronensaft",
       "1 cl Zuckersirup"
     ],
-    "glass": "Cocktailglas",
-    "categories": ["Klassiker"],
+    "glass": "Margarita-Glas / Coupette",
+    "categories": ["Klassiker", "Party"],
     "description": "Eleganter Gin-Cocktail mit Blue Curacao und intensiver blauer Farbe.",
     "preparation": "Alle Zutaten im Shaker mit Eis mixen und in ein gekühltes Glas abseihen.",
     "image": "assets/cocktails/blue_lady.png",
@@ -70,7 +70,7 @@
       "2 cl Limettensaft",
       "Zucker nach Geschmack"
     ],
-    "glass": "Highball-Glas",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Exotisch", "Sommer"],
     "description": "Tropischer Cocktail mit Rum und exotischem Guavensaft.",
     "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein Glas füllen.",
@@ -91,7 +91,7 @@
       "1 cl Grenadine",
       "2 cl frisch gepresster Limettensaft"
     ],
-    "glass": "Highball-Glas",
+    "glass": "Strukturiertes Longdrinkglas / Fancy-Glas",
     "categories": ["Exotisch", "Sommer"],
     "description": "Exotischer Fruchtcocktail mit Wodka, Maracuja und Guave.",
     "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
@@ -111,8 +111,8 @@
       "8 cl Salitos (blau)",
       "2 cl Kokossirup"
     ],
-    "glass": "Highball-Glas",
-    "categories": ["Party"],
+    "glass": "Longdrinkglas / Highballglas",
+    "categories": ["Party", "Exotisch"],
     "description": "Intensiv blauer Party-Cocktail mit Wodka, Blue Curacao und Kokos.",
     "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
     "image": "assets/cocktails/mojito.jpg",
@@ -130,7 +130,7 @@
       "100 ml Sommersby",
       "4 cl Schweppes Orange"
     ],
-    "glass": "Weinglas",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Sommer", "Aperitif"],
     "description": "Leichter Sommerdrink mit Aperol, Apfelcider und Orange.",
     "preparation": "Aperol über Eis in ein Weinglas geben, Sommersby und Schweppes Orange hinzufügen und leicht umrühren.",
@@ -151,7 +151,7 @@
       "4 cl Wodka",
       "6 cl Orangensaft"
     ],
-    "glass": "Highball-Glas",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Sommer", "Party"],
     "description": "Frischer Frühlingscocktail mit Wodka, Blue Curacao und Orangensaft.",
     "preparation": "Alle Zutaten in einem Shaker mit Eis mischen und in ein gekühltes Glas abseihen.",
@@ -173,7 +173,7 @@
       "20 cl Gingerale",
       "4 cl Zitronensaft"
     ],
-    "glass": "Longdrink-Glas",
+    "glass": "Hurricane-Glas / Fancy-Glas",
     "categories": ["Exotisch", "Party"],
     "description": "Großer tropischer Longdrink mit Gin, Malibu und Kokosnote.",
     "preparation": "Gin, Malibu, Kokossirup, Blue Curacao und Zitronensaft im Shaker mit Eis mischen, in ein großes Glas abseihen und mit Gingerale auffüllen.",
@@ -191,8 +191,8 @@
       "6 cl Aperol",
       "Apfelsaft"
     ],
-    "glass": "Highball-Glas",
-    "categories": ["Sommer"],
+    "glass": "Longdrinkglas / Highballglas",
+    "categories": ["Sommer", "Aperitif"],
     "description": "Einfacher, leichter Sommerdrink mit Aperol und Apfelsaft.",
     "preparation": "Aperol über Eis in ein Glas geben und mit Apfelsaft auffüllen.",
     "image": "assets/cocktails/mojito.jpg",
@@ -212,7 +212,7 @@
       "1,5 cl frischer Zitronensaft",
       "0,5 cl Crème de Violette"
     ],
-    "glass": "Cocktailschale",
+    "glass": "Coupette / Cocktailschale",
     "categories": ["Klassiker"],
     "description": "Eleganter Gin-Klassiker mit Veilchenlikör und zartem Lavendel-Ton.",
     "preparation": "Alle Zutaten mit Eiswürfeln shaken und in eine vorgekühlte Cocktailschale (Coupette) abseihen. Mit einer Cocktailkirsche garnieren.",
@@ -231,8 +231,8 @@
       "2 cl frischer Zitronensaft",
       "2 cl Honigsirup (Honig und Wasser 1:1)"
     ],
-    "glass": "Cocktailglas",
-    "categories": ["Klassiker"],
+    "glass": "Coupette / Cocktailschale",
+    "categories": ["Klassiker", "Sommer"],
     "description": "Prohibitions-Klassiker mit Gin, Zitrone und süßlichem Honig.",
     "preparation": "Alle Zutaten im Shaker mit Eis kräftig schütteln und in ein Cocktailglas abseihen. Mit einer Zitronenzeste garnieren.",
     "image": "assets/cocktails/beeknees.jpg",
@@ -271,8 +271,8 @@
       "1,5 cl weißer Wermut (trocken)",
       "1,5 cl Orangensaft"
     ],
-    "glass": "Cocktailschale",
-    "categories": ["Klassiker"],
+    "glass": "Coupette / Cocktailschale",
+    "categories": ["Klassiker", "Aperitif"],
     "description": "Klassischer Pre-Prohibition-Cocktail mit Gin, doppeltem Wermut und Orange.",
     "preparation": "Alle Zutaten mit Eis shaken und in eine gekühlte Cocktailschale abseihen.",
     "image": "assets/cocktails/bronx_cocktail.jpg",
@@ -291,8 +291,8 @@
       "1,5 cl Himbeersirup",
       "1 frisches Eiweiß"
     ],
-    "glass": "Cocktailschale",
-    "categories": ["Klassiker"],
+    "glass": "Coupette / Cocktailschale",
+    "categories": ["Klassiker", "Sommer"],
     "description": "Rosa Klassiker mit Gin und Himbeere, gekrönt von cremigem Eiweißschaum.",
     "preparation": "Zuerst alle Zutaten ohne Eis kräftig shaken (Dry Shake), um das Eiweiß schaumig zu schlagen. Dann Eis hinzufügen, erneut shaken und in eine Cocktailschale abseihen.",
     "image": "assets/cocktails/clover_club.jpg",
@@ -311,7 +311,7 @@
       "1 cl Zuckersirup",
       "Champagner (oder trockener Sekt) zum Auffüllen"
     ],
-    "glass": "Champagnerglas",
+    "glass": "Champagnerflöte / Sektglas",
     "categories": ["Klassiker", "Aperitif"],
     "description": "Festlicher Klassiker mit Gin, Zitrone und Champagner – spritzig und elegant.",
     "preparation": "Gin, Zitronensaft und Sirup mit Eis shaken und in ein Champagnerglas abseihen. Mit Champagner aufgießen und vorsichtig umrühren.",
@@ -335,7 +335,7 @@
       "2-3 Zweige Rosmarin",
       "3-4 Stiele Minze"
     ],
-    "glass": "Tumbler",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Sommer", "Exotisch"],
     "description": "Sorbet-artiger Sommerdrink mit Mango, Gin und Ginger Beer – Rosmarin und Minze für die Frische.",
     "preparation": "Mango vom Stein schneiden, Fruchtfleisch schälen und in grobe Stücke schneiden. Mango, Limettensaft, Zucker, Ginger Beer, Gin und Eiswürfel in einen Standmixer geben und so lange mixen, bis eine cremige, sorbet-ähnliche Konsistenz entsteht. Rosmarin und Minze waschen und trocken tupfen, Minzblätter von den Stielen zupfen. Mango-Masse in Gläser füllen und Rosmarin und Minze darin verteilen.",
@@ -354,7 +354,7 @@
       "2 cl Lime Juice Cordial",
       "1 cl frischer Limettensaft"
     ],
-    "glass": "Cocktailglas",
+    "glass": "Coupette / Cocktailschale",
     "categories": ["Klassiker"],
     "description": "Schnörkelloser Klassiker aus Gin und Limette – knackig und trocken.",
     "preparation": "Alle Zutaten mit Eis kräftig schütteln und in ein Cocktailglas oder einen Tumbler auf frisches Eis abseihen. Mit einer Limettenscheibe garnieren.",
@@ -394,8 +394,8 @@
       "1 Barlöffel Maraschino-Likör",
       "2 Dashes Angostura Bitter"
     ],
-    "glass": "Cocktailschale",
-    "categories": ["Klassiker"],
+    "glass": "Nick & Nora-Glas / elegante Cocktailschale",
+    "categories": ["Klassiker", "Aperitif"],
     "description": "Sanfter Urahn des Martinis – mit süßem Wermut und Maraschino abgerundet.",
     "preparation": "Im Rührglas mit Eis kalt rühren. In eine gekühlte Cocktailschale abseihen und mit einer Zitronenzeste abspritzen.",
     "image": "assets/cocktails/martinez.webp",
@@ -416,7 +416,7 @@
       "Worcestersauce",
       "Prise Salz & Pfeffer"
     ],
-    "glass": "Longdrink-Glas",
+    "glass": "Longdrinkglas / Highballglas",
     "categories": ["Klassiker", "Party"],
     "description": "Die Gin-Variante der Bloody Mary – herzhaft, würzig und perfekt für den Brunch.",
     "preparation": "Alle Zutaten mit Eiswürfeln shaken oder direkt im Glas verrühren. In einem Longdrinkglas mit einer Selleriestange garnieren.",
@@ -436,7 +436,7 @@
       "Grobes Salz für den Rand"
     ],
     "glass": "Tumbler",
-    "categories": ["Sommer"],
+    "categories": ["Klassiker", "Sommer"],
     "description": "Erfrischender Longdrink aus Gin und Grapefruit mit gesalzenem Glasrand.",
     "preparation": "Den Rand eines Tumblers mit einer Limette befeuchten und in Salz tauchen. Eis, Gin und Grapefruitsaft hineingeben und umrühren.",
     "image": "assets/cocktails/saltydog.webp",
@@ -454,7 +454,7 @@
       "2 cl Wodka",
       "1 cl Lillet Blanc"
     ],
-    "glass": "Cocktailschale",
+    "glass": "Martiniglas (klassische V-Form)",
     "categories": ["Klassiker"],
     "description": "Der berühmte James-Bond-Cocktail – kräftig, klar und auf den Punkt.",
     "preparation": "Alle Zutaten im Shaker kräftig auf Eis schütteln (geschüttelt, nicht gerührt). In eine Cocktailschale abseihen und mit einer großen Zitronenzeste garnieren.",
@@ -473,7 +473,7 @@
       "2 cl Cointreau",
       "2 cl frischer Zitronensaft"
     ],
-    "glass": "Cocktailschale",
+    "glass": "Coupette / Cocktailschale",
     "categories": ["Klassiker"],
     "description": "Eleganter Sour-Klassiker mit Gin, Orangenlikör und Zitrone.",
     "preparation": "Alle Zutaten mit Eis im Shaker kräftig schütteln und in eine gekühlte Cocktailschale abseihen.",

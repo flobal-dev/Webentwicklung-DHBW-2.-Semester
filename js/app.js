@@ -10,6 +10,29 @@ let activeGlass    = null;
 const FAV_KEY     = 'cp-favorites';
 const HISTORY_KEY = 'cp-search-history';
 
+const GLASS_CATEGORIES = {
+  longdrink: {
+    label: 'Longdrink & Highball',
+    matches: ['Longdrink', 'Highball']
+  },
+  tumbler: {
+    label: 'Tumbler & Old Fashioned',
+    matches: ['Tumbler', 'Old-Fashioned']
+  },
+  schale: {
+    label: 'Coupette & Cocktailschale',
+    matches: ['Coupette', 'Cocktailschale']
+  },
+  wein_sekt: {
+    label: 'Wein & Sekt',
+    matches: ['Weinglas', 'Spritz-Glas', 'Champagnerflöte', 'Sektglas']
+  },
+  spezial: {
+    label: 'Spezialgläser',
+    matches: ['Hurricane', 'Fancy-Glas', 'Margarita-Glas', 'Nick & Nora', 'Martiniglas']
+  }
+};
+
 // Pfad-Helpers: index.html liegt im Root, alle anderen Seiten in /pages/
 const IN_PAGES = window.location.pathname.includes('/pages/');
 const BASE     = IN_PAGES ? '../' : './';      // -> data/, assets/, css/, js/
@@ -203,9 +226,11 @@ function createCard(cocktail, index = 0) {
   const cats  = cocktail.categories.map(c => `<span class="tag">${c}</span>`).join('');
 
   const videoBadge = cocktail.video ? '<span class="video-badge" title="Mit Video">▶ Video</span>' : '';
+  const detailUrl  = `${PAGES}cocktail.html?id=${cocktail.id}`;
 
   return `
     <article class="ccard" style="animation-delay:${index * 0.07}s">
+      <a class="ccard__link" href="${detailUrl}" aria-label="${cocktail.name} – Details ansehen"></a>
       <div class="ccard__img">
         <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
              onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
@@ -215,7 +240,7 @@ function createCard(cocktail, index = 0) {
         </div>
         ${videoBadge}
         <button class="fav-btn${isFav ? ' active' : ''}"
-                onclick="toggleFav(${cocktail.id},this)"
+                onclick="event.preventDefault();event.stopPropagation();toggleFav(${cocktail.id},this)"
                 title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}"
                 aria-label="Favorit">♡</button>
       </div>
@@ -226,9 +251,6 @@ function createCard(cocktail, index = 0) {
         <div class="ccard__meta">
           <span>⏱ ${cocktail.preparationTime} Min.</span>
           <span>🍸 ${cocktail.alcohol}</span>
-        </div>
-        <div class="ccard__cta">
-          <a href="${PAGES}cocktail.html?id=${cocktail.id}" class="btn-primary btn-sm">Details ansehen</a>
         </div>
       </div>
     </article>`;
@@ -275,17 +297,34 @@ function setCategory(cat) {
   applyFilters();
 }
 
+function getGlassCategory(glass) {
+  const value = String(glass ?? '');
+  for (const [key, cfg] of Object.entries(GLASS_CATEGORIES)) {
+    if (cfg.matches.some(token => value.includes(token))) return key;
+  }
+  // Fallback: jedes Glas muss in einer Kategorie landen.
+  return 'spezial';
+}
+
 // ── Glass type filter ─────────────────────────────────────────
 function renderGlassFilters() {
   const wrap = document.getElementById('glass-filters');
   if (!wrap) return;
-  const glasses = [...new Set(allCocktails.map(c => c.glass))].sort();
-  if (!glasses.length) { wrap.style.display = 'none'; return; }
+  const counts = allCocktails.reduce((acc, c) => {
+    const cat = getGlassCategory(c.glass);
+    acc[cat] = (acc[cat] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const available = Object.keys(GLASS_CATEGORIES).filter(key => (counts[key] ?? 0) >= 1);
+
+  if (!available.length) { wrap.style.display = 'none'; return; }
+
   wrap.innerHTML = `
     <span class="glass-filters-label">Glas:</span>
     <button class="filter-pill${!activeGlass ? ' active' : ''}" onclick="setGlass(null)">Alle</button>
-    ${glasses.map(g =>
-      `<button class="filter-pill${activeGlass === g ? ' active' : ''}" onclick="setGlass('${g.replace(/'/g,"\\'")}')">🥂 ${g}</button>`
+    ${available.map(key =>
+      `<button class="filter-pill${activeGlass === key ? ' active' : ''}" onclick="setGlass('${key}')">🥂 ${GLASS_CATEGORIES[key].label}</button>`
     ).join('')}`;
 }
 
@@ -308,7 +347,7 @@ function applyFilters() {
     res = res.filter(c => c.categories.includes(activeCategory));
   }
 
-  if (activeGlass) res = res.filter(c => c.glass === activeGlass);
+  if (activeGlass) res = res.filter(c => getGlassCategory(c.glass) === activeGlass);
 
   if (q) res = res.filter(c =>
     c.name.toLowerCase().includes(q) ||
@@ -569,6 +608,7 @@ function initCotd(cocktails) {
   const cats   = c.categories.map(cat => `<span class="tag">${cat}</span>`).join('');
   el.innerHTML = `
     <div class="cotd-card">
+      <a class="cotd-link" href="${PAGES}cocktail.html?id=${c.id}" aria-label="${c.name} – Rezept ansehen"></a>
       <div class="cotd-img">
         <img src="${imgPath(c.image)}" alt="${c.name}" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
       </div>
@@ -584,7 +624,6 @@ function initCotd(cocktails) {
           <span>⏱ ${c.preparationTime} Min.</span>
           <span>🍸 ${c.alcohol}</span>
         </div>
-        <a href="${PAGES}cocktail.html?id=${c.id}" class="btn-primary btn-sm">Rezept ansehen</a>
       </div>
     </div>`;
 }

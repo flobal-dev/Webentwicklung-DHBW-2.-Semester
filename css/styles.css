@@ -342,6 +342,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 
 /* ── Cocktail Cards ─────────────────────────────────────── */
 .ccard {
+  position: relative;
   background: var(--g2);
   backdrop-filter: var(--g-blur);
   -webkit-backdrop-filter: var(--g-blur);
@@ -353,7 +354,26 @@ button { cursor: pointer; font-family: inherit; border: none; }
   flex-direction: column;
   transition: transform var(--tb), box-shadow var(--tb), border-color var(--tb);
   animation: cardUp 0.5s ease both;
+  cursor: pointer;
 }
+
+/* Ganze Karte klickbar – unsichtbarer Link über dem Inhalt */
+.ccard__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.ccard__link:focus-visible {
+  outline: 2px solid var(--ac);
+  outline-offset: -4px;
+}
+
+/* Interaktive Elemente müssen über dem Link liegen */
+.fav-btn,
+.video-badge { z-index: 3; }
 .ccard:hover {
   transform: translateY(-7px);
   box-shadow: var(--g-shadow-h);
@@ -1117,6 +1137,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 
 /* ── Cocktail des Tages ──────────────────────────────────── */
 .cotd-card {
+  position: relative;
   background: var(--g2);
   backdrop-filter: var(--g-blur);
   -webkit-backdrop-filter: var(--g-blur);
@@ -1127,10 +1148,25 @@ button { cursor: pointer; font-family: inherit; border: none; }
   grid-template-columns: 360px 1fr;
   box-shadow: var(--g-shadow);
   transition: box-shadow var(--tb), border-color var(--tb);
+  cursor: pointer;
 }
 .cotd-card:hover {
   box-shadow: var(--g-shadow-h);
   border-color: rgba(255,255,255,0.18);
+}
+
+/* Ganze Card klickbar */
+.cotd-link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.cotd-link:focus-visible {
+  outline: 2px solid var(--ac);
+  outline-offset: -4px;
 }
 .cotd-img { overflow: hidden; }
 .cotd-img img {
