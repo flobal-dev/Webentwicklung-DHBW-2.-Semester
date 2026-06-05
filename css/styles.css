@@ -937,6 +937,29 @@ button { cursor: pointer; font-family: inherit; border: none; }
   color: var(--tx-m);
 }
 
+/* Individuelle Avatar-Farben für Andi & Flo */
+.team-avatar.av-andi {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #fff;
+}
+.team-avatar.av-flo {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  color: #fff;
+}
+
+/* Bild-Avatar (Tim-Sticker) */
+.team-avatar.av-img {
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+.team-avatar.av-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .team-name {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
