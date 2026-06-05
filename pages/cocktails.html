@@ -45,12 +45,12 @@
   <!-- ── Page hero ──────────────────────────────────────────── -->
   <div class="page-hero">
     <span class="section-label">Entdecke</span>
-    <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem)">Alle Cocktails</h1>
+    <h1 class="section-title title-xl">Alle Cocktails</h1>
     <p class="section-sub">Von klassischen Zeitlosern bis zu exotischen Geheimtipps — such, filter und entdecke.</p>
   </div>
 
   <!-- ── Search + filter ────────────────────────────────────── -->
-  <div class="section" style="padding-top:0;padding-bottom:2rem">
+  <div class="section section-compact">
     <div class="search-panel">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
@@ -62,10 +62,10 @@
           autocomplete="off"
         >
       </div>
-      <div id="search-history" class="search-history" style="display:none"></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
-        <div id="category-filters" class="filter-row" style="flex:1"></div>
-        <div style="display:flex;gap:0.5rem;align-items:center;flex-shrink:0">
+      <div id="search-history" class="search-history" hidden></div>
+      <div class="filters-head-row">
+        <div id="category-filters" class="filter-row filters-grow"></div>
+        <div class="filters-actions-row">
           <select id="sort-select" class="sort-select">
             <option value="default">Standard</option>
             <option value="az">A → Z</option>
@@ -73,7 +73,7 @@
             <option value="quick">⏱ Schnellste</option>
             <option value="hard">🔥 Schwierigste</option>
           </select>
-          <button id="surprise-btn" class="btn-ghost btn-sm" onclick="surpriseMe()">🎲 Überrasch mich</button>
+          <button id="surprise-btn" class="btn-ghost btn-sm">🎲 Überrasch mich</button>
         </div>
       </div>
       <div id="glass-filters" class="glass-filters-wrap"></div>

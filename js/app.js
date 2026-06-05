@@ -50,6 +50,15 @@ function diffClass(d) {
   return { einfach: 'diff-einfach', mittel: 'diff-mittel', anspruchsvoll: 'diff-anspruchsvoll' }[d] ?? 'diff-einfach';
 }
 
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 // ── Scroll Reveal ────────────────────────────────────────────
 function initScrollReveal() {
   if (!('IntersectionObserver' in window)) return;
@@ -188,9 +197,9 @@ function updateHistoryDisplay() {
   const q       = (document.getElementById('search-input')?.value ?? '').trim();
   const history = getSearchHistory();
 
-  if (!history.length || q) { el.style.display = 'none'; return; }
+  if (!history.length || q) { el.hidden = true; return; }
 
-  el.style.display = 'flex';
+  el.hidden = false;
   el.innerHTML = `
     <span class="history-label">Zuletzt:</span>
     ${history.map((h, i) => `<button class="history-chip" data-idx="${i}">${h}</button>`).join('')}
@@ -220,6 +229,60 @@ function handleSearchInput() {
   }
 }
 
+function handleActionClick(event) {
+  const el = event.target.closest('[data-action]');
+  if (!el) return;
+
+  switch (el.dataset.action) {
+    case 'toggle-fav': {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = parseInt(el.dataset.id, 10);
+      if (!Number.isNaN(id)) toggleFav(id, el);
+      break;
+    }
+    case 'set-category':
+      event.preventDefault();
+      setCategory(el.dataset.category || null);
+      break;
+    case 'set-glass':
+      event.preventDefault();
+      setGlass(el.dataset.glass || null);
+      break;
+    case 'clear-search':
+      event.preventDefault();
+      clearSearch();
+      break;
+    case 'play-hero-video': {
+      const src = el.dataset.videoSrc;
+      if (src) playHeroVideo(src);
+      break;
+    }
+    case 'reset-ingredients': {
+      event.preventDefault();
+      const id = parseInt(el.dataset.id, 10);
+      if (!Number.isNaN(id)) resetIngChecks(id);
+      break;
+    }
+    case 'share-recipe':
+      event.preventDefault();
+      shareRecipe(el.dataset.name || 'Cocktail');
+      break;
+    default:
+      break;
+  }
+}
+
+function handleActionChange(event) {
+  const el = event.target;
+  if (!el?.matches('[data-action="toggle-ingredient"]')) return;
+  const cocktailId = parseInt(el.dataset.id, 10);
+  const idx = parseInt(el.dataset.idx, 10);
+  if (!Number.isNaN(cocktailId) && !Number.isNaN(idx)) {
+    toggleIngCheck(cocktailId, idx, el);
+  }
+}
+
 // ── Cocktail card ────────────────────────────────────────────
 function createCard(cocktail, index = 0) {
   const isFav = getFavs().includes(cocktail.id);
@@ -229,7 +292,7 @@ function createCard(cocktail, index = 0) {
   const detailUrl  = `${PAGES}cocktail.html?id=${cocktail.id}`;
 
   return `
-    <article class="ccard" style="animation-delay:${index * 0.07}s">
+    <article class="ccard">
       <a class="ccard__link" href="${detailUrl}" aria-label="${cocktail.name} – Details ansehen"></a>
       <div class="ccard__img">
         <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
@@ -239,8 +302,7 @@ function createCard(cocktail, index = 0) {
           <span class="diff-badge ${diffClass(cocktail.difficulty)}">${cocktail.difficulty}</span>
         </div>
         ${videoBadge}
-        <button class="fav-btn${isFav ? ' active' : ''}"
-                onclick="event.preventDefault();event.stopPropagation();toggleFav(${cocktail.id},this)"
+        <button class="fav-btn${isFav ? ' active' : ''}" data-action="toggle-fav" data-id="${cocktail.id}"
                 title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}"
                 aria-label="Favorit">♡</button>
       </div>
@@ -280,12 +342,12 @@ function renderCategoryFilters() {
   const cats = [...new Set(allCocktails.flatMap(c => c.categories))].sort();
   const favs = getFavs();
 
-  const allPill = `<button class="filter-pill${!activeCategory ? ' active' : ''}" onclick="setCategory(null)">Alle</button>`;
+  const allPill = `<button class="filter-pill${!activeCategory ? ' active' : ''}" data-action="set-category" data-category="">Alle</button>`;
   const favPill = favs.length
-    ? `<button class="filter-pill${activeCategory === '__favorites__' ? ' active' : ''}" onclick="setCategory('__favorites__')">♡ Favoriten (${favs.length})</button>`
+    ? `<button class="filter-pill${activeCategory === '__favorites__' ? ' active' : ''}" data-action="set-category" data-category="__favorites__">♡ Favoriten (${favs.length})</button>`
     : '';
   const catPills = cats.map(cat =>
-    `<button class="filter-pill${activeCategory === cat ? ' active' : ''}" onclick="setCategory('${cat}')">${cat}</button>`
+    `<button class="filter-pill${activeCategory === cat ? ' active' : ''}" data-action="set-category" data-category="${escapeAttr(cat)}">${cat}</button>`
   ).join('');
 
   wrap.innerHTML = allPill + favPill + catPills;
@@ -322,9 +384,9 @@ function renderGlassFilters() {
 
   wrap.innerHTML = `
     <span class="glass-filters-label">Glas:</span>
-    <button class="filter-pill${!activeGlass ? ' active' : ''}" onclick="setGlass(null)">Alle</button>
+    <button class="filter-pill${!activeGlass ? ' active' : ''}" data-action="set-glass" data-glass="">Alle</button>
     ${available.map(key =>
-      `<button class="filter-pill${activeGlass === key ? ' active' : ''}" onclick="setGlass('${key}')">🥂 ${GLASS_CATEGORIES[key].label}</button>`
+      `<button class="filter-pill${activeGlass === key ? ' active' : ''}" data-action="set-glass" data-glass="${key}">🥂 ${GLASS_CATEGORIES[key].label}</button>`
     ).join('')}`;
 }
 
@@ -380,7 +442,7 @@ function showNoResults(hint) {
     <div class="empty-state">
       <div class="empty-icon">🔍</div>
       <p class="empty-msg">Nichts gefunden für <strong>"${safe}"</strong>.</p>
-      <button class="btn-ghost btn-sm" onclick="clearSearch()">Filter zurücksetzen</button>
+      <button class="btn-ghost btn-sm" data-action="clear-search">Filter zurücksetzen</button>
     </div>`;
 }
 
@@ -391,7 +453,7 @@ function showNoFavorites() {
     <div class="empty-state">
       <div class="empty-icon">♡</div>
       <p class="empty-msg">Du hast noch keine Favoriten gespeichert.<br>Klick auf das ♡-Icon auf einer Karte.</p>
-      <button class="btn-ghost btn-sm" onclick="clearSearch()">Zurück zur Übersicht</button>
+      <button class="btn-ghost btn-sm" data-action="clear-search">Zurück zur Übersicht</button>
     </div>`;
 }
 
@@ -470,20 +532,17 @@ function renderDetail(cocktail) {
     const checked = checkState[idx] === true;
     return `
       <label class="ing-item${checked ? ' checked' : ''}">
-        <input type="checkbox" style="display:none" ${checked ? 'checked' : ''}
-               onchange="toggleIngCheck(${cocktail.id},${idx},this)">
+        <input type="checkbox" class="ing-cb-input" data-action="toggle-ingredient" data-id="${cocktail.id}" data-idx="${idx}" ${checked ? 'checked' : ''}>
         <span class="ing-cb"></span>
         <span>${ing}</span>
       </label>`;
   }).join('');
 
-  const safeName = cocktail.name.replace(/'/g, "\\'");
-
   // Hero-Media: Wenn ein Video vorhanden ist, click-to-play (Poster -> Video)
   const hasVideo = !!cocktail.video;
   const heroMedia = hasVideo
     ? `
-      <div class="hero-video" id="hero-video" onclick="playHeroVideo('${imgPath(cocktail.video)}')">
+      <div class="hero-video" id="hero-video" data-action="play-hero-video" data-video-src="${imgPath(cocktail.video)}">
         <img src="${imgPath(cocktail.image)}" alt="${cocktail.name}"
              onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
         <button class="hero-play-btn" type="button" aria-label="Video abspielen">
@@ -520,7 +579,7 @@ function renderDetail(cocktail) {
       </div>
     </div>
 
-    <p class="prep-text" style="margin-bottom:1.5rem;padding:0 0.25rem;font-size:0.96rem;color:var(--tx-m)">
+    <p class="prep-text detail-intro">
       ${cocktail.description}
     </p>
 
@@ -528,8 +587,7 @@ function renderDetail(cocktail) {
       <div class="glass-panel">
         <h3 class="panel-title">Zutaten</h3>
         <div class="ing-list">${ings}</div>
-        <button class="btn-ghost btn-sm" onclick="resetIngChecks(${cocktail.id})"
-                style="margin-top:1rem;width:100%;justify-content:center">↺ Zurücksetzen</button>
+        <button class="btn-ghost btn-sm detail-reset-btn" data-action="reset-ingredients" data-id="${cocktail.id}">↺ Zurücksetzen</button>
       </div>
       <div class="glass-panel">
         <h3 class="panel-title">Zubereitung</h3>
@@ -537,9 +595,9 @@ function renderDetail(cocktail) {
       </div>
     </div>
 
-    <div style="display:flex;gap:0.75rem;margin-top:1.75rem;flex-wrap:wrap">
+    <div class="detail-actions">
       <a href="${PAGES}cocktails.html" class="btn-ghost btn-sm">← Alle Cocktails</a>
-      <button id="share-btn" class="btn-ghost btn-sm" onclick="shareRecipe('${safeName}')">↗ Teilen</button>
+      <button id="share-btn" class="btn-ghost btn-sm" data-action="share-recipe" data-name="${escapeAttr(cocktail.name)}">↗ Teilen</button>
     </div>`;
 
   initScrollReveal();
@@ -613,7 +671,7 @@ function initCotd(cocktails) {
         <img src="${imgPath(c.image)}" alt="${c.name}" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
       </div>
       <div class="cotd-body">
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center">
+        <div class="cotd-top-row">
           ${cats}
           <span class="diff-badge ${diffClass(c.difficulty)}">${c.difficulty}</span>
         </div>
@@ -649,7 +707,6 @@ function playHeroVideo(src) {
            preload="metadata" class="hero-video__player"></video>`;
   box.classList.add('hero-video--playing');
   hero?.classList.add('detail-hero--playing');
-  box.onclick = null;
 
   // Nach Ende: Poster wiederherstellen, damit erneut abgespielt werden kann
   const video = box.querySelector('video');
@@ -657,7 +714,6 @@ function playHeroVideo(src) {
     box.innerHTML = posterHTML;
     box.classList.remove('hero-video--playing');
     hero?.classList.remove('detail-hero--playing');
-    box.onclick = () => playHeroVideo(src);
   });
 }
 
@@ -677,6 +733,9 @@ async function initHomepage() {
 
 // ── Router ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', handleActionClick);
+  document.addEventListener('change', handleActionChange);
+  document.getElementById('surprise-btn')?.addEventListener('click', surpriseMe);
   if (document.getElementById('featured-grid'))  initHomepage();
   if (document.getElementById('cocktail-grid'))   initCocktailList();
   if (document.getElementById('cocktail-detail')) initCocktailDetail();
