@@ -37,7 +37,7 @@ const GLASS_CATEGORIES = {
 const IN_PAGES = window.location.pathname.includes('/pages/');
 const BASE     = IN_PAGES ? '../' : './';      // -> data/, assets/, css/, js/
 const PAGES    = IN_PAGES ? ''    : 'pages/';  // -> cocktail.html, kategorien.html, ...
-const FALLBACK_IMG = BASE + 'assets/cocktails/mojito.jpg';
+const FALLBACK_IMG = BASE + 'assets/cocktails/barkeeper.png';
 const imgPath  = (p) => BASE + p;
 
 async function fetchCocktails() {
