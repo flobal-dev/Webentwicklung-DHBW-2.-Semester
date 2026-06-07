@@ -1286,9 +1286,10 @@ button { cursor: pointer; font-family: inherit; border: none; }
   background: var(--g1);
   border: 1px solid var(--gb);
   border-radius: var(--r-p);
-  color: var(--tx-m);
+  color: var(--tx);
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
   outline: none;
   appearance: none;
@@ -1305,6 +1306,17 @@ button { cursor: pointer; font-family: inherit; border: none; }
 }
 [data-bs-theme="light"] .sort-select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(24,20,31,0.4)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Aufgeklappte Optionen lesbar machen (dunkler Hintergrund, heller Text) */
+.sort-select option {
+  background-color: #1a1530;
+  color: #f0eef7;
+  font-weight: 500;
+}
+[data-bs-theme="light"] .sort-select option {
+  background-color: #ffffff;
+  color: #18141f;
 }
 
 /* ── Ingredient checkbox ─────────────────────────────────── */
